@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head th:replace="fragments/head" />
+</head>
+<body>
+
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+
+	<div class="container">
+		<h2>Productos</h2>
+		<p>Los productos que figuran son los siguientes:</p>
+
+		<button type="button" id="updateButton" class="btn btn-default">Actualizar productos</button>
+		<script>
+			$("#updateButton").click(function() {
+				$("#tableProducts").load('/product/list/update');
+			});
+		</script>
+
+		<div class="table-responsive">
+			<table class="table table-hover" th:fragment="tableProducts"
+				id="tableProducts">
+
+				<thead>
+					<tr>
+						<th class="col-md-1">id</th>
+						<th>Descripción</th>
+						<th>Precio</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product : ${productList}">
+						<td th:text="${product.id}">1</td>
+						<td th:text="${product.description}">Ejercicio 1</td>
+						<td th:text="${product.price}">10</td>
+						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
+						<td><a th:href="${'/product/edit/' + product.id}">modificar</a></td>
+						<td><a th:href="${'/product/delete/' + product.id}">eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<footer th:replace="fragments/footer" />
+
+
+</body>
+</html>
