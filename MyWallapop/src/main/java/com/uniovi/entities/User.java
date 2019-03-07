@@ -106,4 +106,14 @@ public class User {
 	public void setMoney(double money) {
 		this.money = money;
 	}
+	
+	public String getRole()
+	{
+		return role;
+	}
+	
+	public void setRole(String role)
+	{
+		this.role = role;
+	}
 }

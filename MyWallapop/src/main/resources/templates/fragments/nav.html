@@ -8,20 +8,14 @@
 					class="icon-bar"></span>
 			</button>
 			<!-- <img src="/img/wallapop.jpeg" alt="logo" /> -->
-
-
-
-
-
+			
 
 
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-
-
+			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
 				<li><a href="/">Home</a></li>
-				<li id="marks-menu" class="dropdown"><a class="dropdown-toggle"
+				<li id="marks-menu" class="dropdown" sec:authorize="hasRole('ROLE_STANDARD')"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> Gestión de Productos <span
 						class="caret"></span>
 				</a>
@@ -29,25 +23,26 @@
 						<li><a href="/product/add">Agregar Productos</a></li>
 						<li><a href="/product/list">Ver Productos</a></li>
 					</ul></li>
-				<li id="users-menu" class="dropdown"><a class="dropdown-toggle"
+				<li id="users-menu" class="dropdown"  sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> Gestión de Usuarios <span
-						class="caret"></span>
+						class="caret" ></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/user/add">Agregar usuario</a></li>
 						<li><a href="/user/list">Ver Usuarios</a></li>
-					</ul>
-					
-					
-					
+					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/signup"> <span
+				<li sec:authorize="!isAuthenticated()"><a href="/signup"> <span
 						class="glyphicon glyphicon-user"></span> Registrate
 				</a></li>
-				<li><a href="/login"> <span
+				<li sec:authorize="!isAuthenticated()"><a href="/login"> <span
 						class="glyphicon glyphicon-log-in"></span> Identifícate
 				</a></li>
+				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
+						class="glyphicon glyphicon-log-out"></span> Desconectar
+				</a></li>
+
 			</ul>
 		</div>
 	</div>

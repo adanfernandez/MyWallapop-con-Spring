@@ -1,5 +1,10 @@
 package com.uniovi.controllers;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +21,9 @@ import com.uniovi.services.UsersService;
 
 @Controller
 public class ProductController {
+	
+	@Autowired
+	private HttpSession httpSession;
 
 	@Autowired // Inyectar el servicio
 	private ProductsService productsService;
@@ -25,6 +33,13 @@ public class ProductController {
 
 	@RequestMapping("/product/list")
 	public String getList(Model model) {
+		
+		Set<Product> consultedList= (Set<Product>) httpSession.getAttribute("consultedList");
+		if ( consultedList == null ) {
+			consultedList = new HashSet<Product>();
+		}
+		model.addAttribute("consultedList", consultedList);
+		
 		model.addAttribute("productList", productsService.getProducts());
 		return "product/list";
 	}

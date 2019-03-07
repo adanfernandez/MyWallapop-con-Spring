@@ -16,21 +16,36 @@ public class InsertSampleDataService {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private RolesService rolesService;
+
 
 	@PostConstruct
 	public void init() {
 		User user1 = new User("pedro@pedro", "Pedro", "Díaz");
 		user1.setPassword("123456");
+		user1.setRole(rolesService.getRoles()[0]);
+		
 		User user2 = new User("lucas@lucas", "Lucas", "Núñez");
 		user2.setPassword("123456");
+		user2.setRole(rolesService.getRoles()[1]);
+		
 		User user3 = new User("maria@maria", "María", "Rodríguez");
 		user3.setPassword("123456");
+		user3.setRole(rolesService.getRoles()[0]);
+		
 		User user4 = new User("marta@marta", "Marta", "Almonte");
 		user4.setPassword("123456");
+		user4.setRole(rolesService.getRoles()[1]);
+		
 		User user5 = new User("pelayo@pelayo", "Pelayo", "Valdes");
 		user5.setPassword("123456");
+		user5.setRole(rolesService.getRoles()[0]);
+		
 		User user6 = new User("edward@edward", "Edward", "Núñez");
 		user6.setPassword("123456");
+		user6.setRole(rolesService.getRoles()[1]);
 		
 		Set<Product> user1Desc = new HashSet<Product>() {
 			{

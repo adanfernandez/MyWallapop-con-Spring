@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.uniovi.entities.*;
+import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,9 @@ public class UserController {
 	@Autowired
 	private SecurityService securityService;
 
+	@Autowired
+	private RolesService rolesService;
+	
 	@RequestMapping("/user/list")
 	public String getListado(Model model) {
 		model.addAttribute("usersList", usersService.getUsers());
@@ -27,7 +31,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/add")
 	public String getUser(Model model) {
-		model.addAttribute("usersList", usersService.getUsers());
+		model.addAttribute("rolesList", rolesService.getRoles());
 		return "user/add";
 	}
 
@@ -70,6 +74,7 @@ public class UserController {
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(@ModelAttribute("user") User user, Model model) {
+		user.setRole(rolesService.getRoles()[0]);
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";

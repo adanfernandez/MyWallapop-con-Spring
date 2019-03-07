@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration
 @EnableWebSecurity
@@ -25,9 +26,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll().anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home").and()
-				.logout().permitAll();
+				.antMatchers("/css/**", "/img/**", "/script/**", "/", "/signup", "/login/**").permitAll()
+				.antMatchers("/product/add").hasAuthority("ROLE_STANDARD").antMatchers("/product/**")
+				.hasAnyAuthority("ROLE_STANDARD", "ROLE_ADMIN").antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN")
+				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll()
+				.defaultSuccessUrl("/home").and().logout().permitAll();
 	}
 
 	@Autowired
@@ -40,4 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+
+	@Bean
+	public SpringSecurityDialect securityDialect() {
+		return new SpringSecurityDialect();
+	}
+
 }
