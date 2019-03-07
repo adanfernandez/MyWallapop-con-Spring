@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -67,8 +68,15 @@ public class ProductsService {
 	 * 
 	 * @param id
 	 */
-	public void deleteProduct(Long id) {
-		productsRepository.deleteById(id);
+	public void deleteProduct(Long id, User user) {
+		List<Product> products = productsRepository.findAllByUser(user);
+		
+		Optional<Product> product = productsRepository.findById(id);
+		if(product.isPresent())
+		{
+			if(products.contains(product.get()))
+				productsRepository.deleteById(id);
+		}		
 	}
 
 	

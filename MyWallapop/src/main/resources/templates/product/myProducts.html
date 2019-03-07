@@ -10,8 +10,8 @@
 
 	<div class="container">
 		<h2>Productos</h2>
-		<p>Los productos que figuran son los siguientes:</p>
-		
+		<p>Estos son los productos que tienes a la venta:</p>
+
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
@@ -33,6 +33,7 @@
 						<td th:text="${product.price}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
 						<td><a th:href="${'/product/edit/' + product.id}">modificar</a></td>
+						<td><a th:href="${'/product/delete/' + product.id}">eliminar</a></td>
 					</tr>
 				</tbody>
 			</table>

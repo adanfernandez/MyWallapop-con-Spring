@@ -43,7 +43,8 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", description=" + description + ", price=" + price + "]";
+		return "Product [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
+				+ ", date=" + date + ", user=" + user.getEmail() + "]";
 	}
 
 	public Long getId() {

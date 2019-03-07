@@ -33,13 +33,19 @@ public class ProductController {
 	@Autowired
 	private UsersService usersService;
 
-	@RequestMapping("/product/list")
-	public String getList(Model model, Principal principal) {
+	@RequestMapping("/product/myProducts")
+	public String getMyProducts(Model model, Principal principal) {
 		
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
 		
 		model.addAttribute("productList", productsService.getProductsForUser(user));
+		return "product/myProducts";
+	}
+	
+	@RequestMapping("/product/list")
+	public String getList(Model model, Principal principal) {		
+		model.addAttribute("productList", productsService.getProducts());
 		return "product/list";
 	}
 
@@ -57,9 +63,10 @@ public class ProductController {
 	}
 
 	@RequestMapping("/product/delete/{id}")
-	public String deleteProduct(@PathVariable Long id) {
-		productsService.deleteProduct(id);
-		return "redirect:/product/list";
+	public String deleteProduct(@PathVariable Long id, Principal principal) {
+		User user = usersService.getUserByEmail(principal.getName());
+		productsService.deleteProduct(id, user);
+		return "redirect:/product/myProducts";
 	}
 
 	@RequestMapping("/product/details/{id}")
@@ -101,16 +108,5 @@ public class ProductController {
 		return "redirect:/product/details/" + id;
 	}
 
-	/**
-	 * Actualizar pagina de productos
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/product/list/update")
-	public String updateList(Model model) {
-		model.addAttribute("productList", productsService.getProducts());
-		return "product/list :: tableProducts";
-	}
 
 }
