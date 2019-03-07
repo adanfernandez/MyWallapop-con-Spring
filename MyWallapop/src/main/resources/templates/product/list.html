@@ -25,9 +25,9 @@
 
 				<thead>
 					<tr>
-						<th class="col-md-1">id</th>
+						<th class="col-md-1">Título</th>
 						<th>Descripción</th>
-						<th>Precio</th>
+						<th>Precio (€)</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -35,7 +35,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="product : ${productList}">
-						<td th:text="${product.id}">1</td>
+						<td th:text="${product.title}">1</td>
 						<td th:text="${product.description}">Ejercicio 1</td>
 						<td th:text="${product.price}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>

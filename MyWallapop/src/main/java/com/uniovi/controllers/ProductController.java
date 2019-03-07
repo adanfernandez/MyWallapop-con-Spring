@@ -1,5 +1,6 @@
 package com.uniovi.controllers;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.entities.Product;
+import com.uniovi.entities.User;
 import com.uniovi.services.ProductsService;
 import com.uniovi.services.UsersService;
 
@@ -32,15 +34,12 @@ public class ProductController {
 	private UsersService usersService;
 
 	@RequestMapping("/product/list")
-	public String getList(Model model) {
+	public String getList(Model model, Principal principal) {
 		
-		Set<Product> consultedList= (Set<Product>) httpSession.getAttribute("consultedList");
-		if ( consultedList == null ) {
-			consultedList = new HashSet<Product>();
-		}
-		model.addAttribute("consultedList", consultedList);
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
 		
-		model.addAttribute("productList", productsService.getProducts());
+		model.addAttribute("productList", productsService.getProductsForUser(user));
 		return "product/list";
 	}
 
@@ -51,7 +50,8 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public String setProduct(@ModelAttribute Product product) {
+	public String setProduct(@ModelAttribute Product product, Principal principal) {
+		product.setUser(usersService.getUserByEmail(principal.getName()));
 		productsService.addProduct(product);
 		return "redirect:/product/list";
 	}
@@ -94,6 +94,7 @@ public class ProductController {
 	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute Product product) {
 		Product original = productsService.getProduct(id);
 		// modificar solo score y description
+		original.setTitle(product.getTitle());
 		original.setPrice(product.getPrice());
 		original.setDescription(product.getDescription());
 		productsService.addProduct(original);

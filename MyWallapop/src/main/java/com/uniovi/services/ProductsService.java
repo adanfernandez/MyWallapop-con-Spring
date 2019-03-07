@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Product;
+import com.uniovi.entities.User;
 import com.uniovi.repositories.ProductsRepository;
 
 @Service
@@ -69,4 +70,17 @@ public class ProductsService {
 	public void deleteProduct(Long id) {
 		productsRepository.deleteById(id);
 	}
+
+	
+	/**
+	 * Obte
+	 * @param user
+	 * @return
+	 */
+	public List<Product> getProductsForUser(User user) {
+		List<Product> products = new ArrayList<Product>();
+		products = productsRepository.findAllByUser(user);
+		return products;
+	}
+
 }

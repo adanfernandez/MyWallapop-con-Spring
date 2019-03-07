@@ -49,20 +49,20 @@ public class InsertSampleDataService {
 		
 		Set<Product> user1Desc = new HashSet<Product>() {
 			{
-				add(new Product("Descripción A1", 10.0, user1));
-				add(new Product("Descripción A2", 9.0, user1));
-				add(new Product("Descripción A3", 7.0, user1));
-				add(new Product("Descripción A4", 6.5, user1));
+				add(new Product("Titulo A1", "Descripción A1", 10.0, user1));
+				add(new Product("Titulo A2","Descripción A2", 9.0, user1));
+				add(new Product("Titulo A3","Descripción A3", 7.0, user1));
+				add(new Product("Titulo A4","Descripción A4", 6.5, user1));
 			}
 		};
 		user1.setProducts(user1Desc);
 		
 		Set<Product> user2Desc = new HashSet<Product>() {
 			{
-				add(new Product("Descripción B1", 5.0, user2));
-				add(new Product("Descripción B2", 4.3, user2));
-				add(new Product("Descripción B3", 8.0, user2));
-				add(new Product("Descripción B4", 3.5, user2));
+				add(new Product("Titulo B1","Descripción B1", 5.0, user2));
+				add(new Product("Titulo B2","Descripción B2", 4.3, user2));
+				add(new Product("Titulo B3","Descripción B3", 8.0, user2));
+				add(new Product("Titulo B4","Descripción B4", 3.5, user2));
 			}
 		};
 		user2.setProducts(user2Desc);
@@ -70,18 +70,18 @@ public class InsertSampleDataService {
 		Set<Product> user3Desc = new HashSet<Product>() {
 			{
 				;
-				add(new Product("Descripción C1", 5.5, user3));
-				add(new Product("Descripción C2", 6.6, user3));
-				add(new Product("Descripción C3", 7.0, user3));
+				add(new Product("Titulo C1","Descripción C1", 5.5, user3));
+				add(new Product("Titulo C2","Descripción C2", 6.6, user3));
+				add(new Product("Titulo C3","Descripción C3", 7.0, user3));
 			}
 		};
 		user3.setProducts(user3Desc);
 		
 		Set<Product> user4Desc = new HashSet<Product>() {
 			{
-				add(new Product("Descripción D1", 10.0, user4));
-				add(new Product("Descripción D2", 8.0, user4));
-				add(new Product("Descripción D3", 9.0, user4));
+				add(new Product("Titulo D1","Descripción D1", 10.0, user4));
+				add(new Product("Titulo D2","Descripción D2", 8.0, user4));
+				add(new Product("Titulo D3","Descripción D3", 9.0, user4));
 			}
 		};
 		user4.setProducts(user4Desc);

@@ -13,10 +13,25 @@
 
 	<div class="container">
 		<h2>Detalles del producto</h2>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Título</div>
+			<div class="panel-body" th:text="${product.title}">28276</div>
+		</div>
 
 		<div class="panel panel-default">
-			<div class="panel-heading">DNI</div>
-			<div class="panel-body" th:text="${product.user.dni}">28276</div>
+			<div class="panel-heading">Descipción</div>
+			<div class="panel-body" th:text="${product.description}">28276</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Precio</div>
+			<div class="panel-body" th:text="${product.price}">28276</div>
+		</div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">Fecha</div>
+			<div class="panel-body" th:text="${product.date}">28276</div>
 		</div>
 
 	</div>
