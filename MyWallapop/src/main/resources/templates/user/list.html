@@ -6,34 +6,46 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2>Usuarios</h2>
+		
 		<p>Los usuarios que actualmente figuran en el sistema son los
 			siguientes:</p>
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>DNI</th>
-						<th>Nombre</th>
-						<th>Apellidos</th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="user : ${usersList}">
-						<td th:text="${user.email}">71888888X</td>
-						<td th:text="${user.name}">Nombre del alumno</td>
-						<td th:text="${user.lastName}">Apellidos del alumno</td>
-						<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-						<td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
-						<td><a th:href="${'/user/delete/' + user.id}">eliminar</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			
+		
+		
+		
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>DNI</th>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Eliminar</th>
+							<th class="col-md-1"></th>
+							<th class="col-md-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="user : ${usersList}">
+							<td th:text="${user.email}">71888888X</td>
+							<td th:text="${user.name}">Nombre del alumno</td>
+							<td th:text="${user.lastName}">Apellidos del alumno</td>
+							<form  class="form-horizontal" method="post" action="/user/delete">
+							<td><input type="checkbox" name="checkbox_ids" th:value="${user.id}"></td>
+							<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
+							<td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Eliminar usuarios seleccionados</button>
+					</div>
+			</div>
+		</form>
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>

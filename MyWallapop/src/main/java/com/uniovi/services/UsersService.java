@@ -12,7 +12,7 @@ import com.uniovi.repositories.UsersRepository;
 public class UsersService {
 	@Autowired
 	private UsersRepository usersRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -42,7 +42,8 @@ public class UsersService {
 		return usersRepository.findByEmail(email);
 	}
 
-	public void deleteUser(Long id) {
-		usersRepository.deleteById(id);
+	public void deleteUser(ArrayList<Long> ids) {
+		for (Long id : ids)
+			usersRepository.deleteById(id);
 	}
 }

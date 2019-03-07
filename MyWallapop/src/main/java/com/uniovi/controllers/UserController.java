@@ -1,5 +1,8 @@
 package com.uniovi.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,9 +50,15 @@ public class UserController {
 		return "user/details";
 	}
 
-	@RequestMapping("/user/delete/{id}")
-	public String delete(@PathVariable Long id) {
-		usersService.deleteUser(id);
+	@RequestMapping(value="/user/delete", method=RequestMethod.POST)
+	public String delete(@RequestParam(name="checkbox_ids") List<Long> ids) {
+		
+		for(Long l : ids)
+		{
+			System.out.println(l);
+		}
+		
+		usersService.deleteUser((ArrayList<Long>)ids);
 		return "redirect:/user/list";
 	}
 
