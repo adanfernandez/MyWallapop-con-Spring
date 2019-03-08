@@ -45,9 +45,15 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/product/list")
-	public String getList(Model model, Principal principal) {
+	public String getList(Model model, Principal principal, @RequestParam(value = "", required=false) String searchText) {
 		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
-		model.addAttribute("productList", productsService.getProducts());
+		
+		if (searchText != null && !searchText.isEmpty()) {
+			model.addAttribute("productList", productsService.searchProductsByTitle(searchText));
+		}
+		else {
+			model.addAttribute("productList", productsService.getProducts());
+		}
 		return "product/list";
 	}
 
