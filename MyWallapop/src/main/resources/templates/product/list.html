@@ -22,8 +22,7 @@
 						<th>Descripción</th>
 						<th>Precio (€)</th>
 						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -32,7 +31,6 @@
 						<td th:text="${product.description}">Ejercicio 1</td>
 						<td th:text="${product.price}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
-						<td><a th:href="${'/product/edit/' + product.id}">modificar</a></td>
 					</tr>
 				</tbody>
 			</table>

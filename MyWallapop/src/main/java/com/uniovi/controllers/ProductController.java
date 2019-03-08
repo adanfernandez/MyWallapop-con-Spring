@@ -57,14 +57,17 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
 	public String setProduct(@ModelAttribute Product product, Principal principal) {
-		product.setUser(usersService.getUserByEmail(principal.getName()));
-		productsService.addProduct(product);
+		
+		User user = usersService.getUserByEmail(principal.getName());
+		product.setUser(user);
+		productsService.addProduct(product, user);
 		return "redirect:/product/list";
 	}
 
 	@RequestMapping("/product/delete/{id}")
 	public String deleteProduct(@PathVariable Long id, Principal principal) {
 		User user = usersService.getUserByEmail(principal.getName());
+		
 		productsService.deleteProduct(id, user);
 		return "redirect:/product/myProducts";
 	}
@@ -98,13 +101,16 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(value = "/product/edit/{id}", method = RequestMethod.POST)
-	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute Product product) {
+	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute Product product, Principal principal) {
 		Product original = productsService.getProduct(id);
-		// modificar solo score y description
+
 		original.setTitle(product.getTitle());
 		original.setPrice(product.getPrice());
 		original.setDescription(product.getDescription());
-		productsService.addProduct(original);
+		
+		User user = usersService.getUserByEmail(principal.getName());
+		
+		productsService.addProduct(original, user);
 		return "redirect:/product/details/" + id;
 	}
 

@@ -59,8 +59,9 @@ public class ProductsService {
 	 * 
 	 * @param product
 	 */
-	public void addProduct(Product product) {
-		productsRepository.save(product);
+	public void addProduct(Product product, User user) {
+		if(product.getUser().getEmail().equals(user.getEmail()))
+			productsRepository.save(product);
 	}
 
 	/**
@@ -71,17 +72,32 @@ public class ProductsService {
 	public void deleteProduct(Long id, User user) {
 		List<Product> products = productsRepository.findAllByUser(user);
 		
-		Optional<Product> product = productsRepository.findById(id);
-		if(product.isPresent())
+		
+/*		Product product = productsRepository.findById(id).orElse(null);
+		if(product == null)
 		{
-			if(products.contains(product.get()))
+			if(products.contains(product))
 				productsRepository.deleteById(id);
-		}		
+		}
+		
+		for(Product p : productsRepository.findAll())
+		{
+			System.out.println(p.toString());
+		}
+		System.out.println("\n\n\n\n");*/
+		
+		
+		Optional<Product> product = productsRepository.findById(id);
+		product.ifPresent(
+				prod->{
+			if(products.contains(prod)) {
+				productsRepository.delete(prod);
+			}
+		});
 	}
 
-	
 	/**
-	 * Obte
+	 * Obtener productos de un usuario específico
 	 * @param user
 	 * @return
 	 */
@@ -90,5 +106,5 @@ public class ProductsService {
 		products = productsRepository.findAllByUser(user);
 		return products;
 	}
-
+	
 }
