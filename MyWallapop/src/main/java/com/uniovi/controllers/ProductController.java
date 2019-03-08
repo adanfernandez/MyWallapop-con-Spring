@@ -40,18 +40,21 @@ public class ProductController {
 		User user = usersService.getUserByEmail(email);
 		
 		model.addAttribute("productList", productsService.getProductsForUser(user));
+		model.addAttribute("user", user);
 		return "product/myProducts";
 	}
 	
 	@RequestMapping("/product/list")
-	public String getList(Model model, Principal principal) {		
+	public String getList(Model model, Principal principal) {
+		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
 		model.addAttribute("productList", productsService.getProducts());
 		return "product/list";
 	}
 
 	@RequestMapping(value = "/product/add")
-	public String getProduct(Model model) {
-		model.addAttribute("usersList", usersService.getUsers());
+	public String getProduct(Model model, Principal principal) {
+		//model.addAttribute("usersList", usersService.getUsers());
+		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
 		return "product/add";
 	}
 

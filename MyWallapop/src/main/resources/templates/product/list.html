@@ -9,19 +9,21 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
+		<div th:replace="fragments/infoUser" />
+
 		<h2>Productos</h2>
 		<p>Los productos que figuran son los siguientes:</p>
-		
+
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
 
 				<thead>
 					<tr>
-						<th class="col-md-1">Título</th>
-						<th>Descripción</th>
-						<th>Precio (€)</th>
-						<th class="col-md-1"></th>
+						<th class="col-md-3">Título</th>
+						<th class="col-md-3">Descripción</th>
+						<th class="col-md-3">Precio (€)</th>
+						<th class="col-md-3"></th>
 
 					</tr>
 				</thead>

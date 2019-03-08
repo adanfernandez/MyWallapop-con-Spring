@@ -9,13 +9,11 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		<h2>Productos</h2>
+		<div th:replace="fragments/infoUser" />
 		<p>Estos son los productos que tienes a la venta:</p>
-
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
-
 				<thead>
 					<tr>
 						<th class="col-md-1">Título</th>
