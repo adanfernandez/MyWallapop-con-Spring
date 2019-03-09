@@ -22,6 +22,9 @@ public class ProductsService {
 
 	@Autowired
 	private ProductsRepository productsRepository;
+	
+	@Autowired
+	private UsersService usersService;
 
 	@Autowired
 	private HttpSession httpSession;
@@ -100,10 +103,53 @@ public class ProductsService {
 		return products;
 	}
 
+	/**
+	 * Obtener los productos que contengan la cadena de texto pasada por parámetro
+	 * @param searchText
+	 * @return
+	 */
 	public List<Product> searchProductsByTitle(String searchText) {
 		searchText = "%"+searchText+"%";
 		List<Product> products = new ArrayList<Product>();
 		products = productsRepository.searchByTitle(searchText);
+		return products;
+	}
+	
+	public void buy(Long id, User user)
+	{
+		Product product = getProduct(id);
+	
+		if(!(product.getPrice() > user.getMoney()
+				|| product.getUser().equals(user)
+				|| product.isBuyed())){
+			productsRepository.buyProduct(id, user.getId());
+			usersService.updateMoney(user, product.getPrice());
+			
+/*			for(Product p : productsRepository.findAll())
+			{
+				System.out.println("LISTA DE PRODUCTOS");
+				System.out.println(p);
+			}
+			System.out.println("\n\n\n");
+
+			for(User u : usersService.getUsers()) {
+				System.out.println("LISTA DE USUARIOS");
+				System.out.println(u);
+			}
+			
+			System.out.println("\n\n\n\n\n\n\n");
+*/		
+		}
+	}
+	
+	/**
+	 * Obtener productos comprados por un usuario
+	 * @param user
+	 * @return
+	 */
+	public List<Product> getProductsPurchased(User user)
+	{
+		ArrayList<Product> products = (ArrayList<Product>) productsRepository.findAllByBuyer(user);
 		return products;
 	}
 }

@@ -1,5 +1,6 @@
 package com.uniovi.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.uniovi.entities.*;
+import com.uniovi.services.ProductsService;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
@@ -19,6 +21,9 @@ public class UserController {
 
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private ProductsService productsService;
 
 	@Autowired
 	private SecurityService securityService;
@@ -52,12 +57,7 @@ public class UserController {
 
 	@RequestMapping(value="/user/delete", method=RequestMethod.POST)
 	public String delete(@RequestParam(name="checkbox_ids") List<Long> ids) {
-		
-		for(Long l : ids)
-		{
-			System.out.println(l);
-		}
-		
+				
 		usersService.deleteUser((ArrayList<Long>)ids);
 		return "redirect:/user/list";
 	}
@@ -98,5 +98,5 @@ public class UserController {
 	public String home(Model model) {
 		return "home";
 	}
-
+	
 }

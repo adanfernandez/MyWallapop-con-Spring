@@ -1,8 +1,6 @@
 package com.uniovi.controllers;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
@@ -23,7 +20,7 @@ import com.uniovi.services.UsersService;
 
 @Controller
 public class ProductController {
-	
+
 	@Autowired
 	private HttpSession httpSession;
 
@@ -35,23 +32,23 @@ public class ProductController {
 
 	@RequestMapping("/product/myProducts")
 	public String getMyProducts(Model model, Principal principal) {
-		
+
 		String email = principal.getName();
 		User user = usersService.getUserByEmail(email);
-		
+
 		model.addAttribute("productList", productsService.getProductsForUser(user));
 		model.addAttribute("user", user);
 		return "product/myProducts";
 	}
-	
+
 	@RequestMapping("/product/list")
-	public String getList(Model model, Principal principal, @RequestParam(value = "", required=false) String searchText) {
+	public String getList(Model model, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
 		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
-		
+
 		if (searchText != null && !searchText.isEmpty()) {
 			model.addAttribute("productList", productsService.searchProductsByTitle(searchText));
-		}
-		else {
+		} else {
 			model.addAttribute("productList", productsService.getProducts());
 		}
 		return "product/list";
@@ -59,14 +56,14 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/add")
 	public String getProduct(Model model, Principal principal) {
-		//model.addAttribute("usersList", usersService.getUsers());
+		// model.addAttribute("usersList", usersService.getUsers());
 		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
 		return "product/add";
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
 	public String setProduct(@ModelAttribute Product product, Principal principal) {
-		
+
 		User user = usersService.getUserByEmail(principal.getName());
 		product.setUser(user);
 		productsService.addProduct(product, user);
@@ -76,7 +73,7 @@ public class ProductController {
 	@RequestMapping("/product/delete/{id}")
 	public String deleteProduct(@PathVariable Long id, Principal principal) {
 		User user = usersService.getUserByEmail(principal.getName());
-		
+
 		productsService.deleteProduct(id, user);
 		return "redirect:/product/myProducts";
 	}
@@ -116,12 +113,35 @@ public class ProductController {
 		original.setTitle(product.getTitle());
 		original.setPrice(product.getPrice());
 		original.setDescription(product.getDescription());
-		
+
 		User user = usersService.getUserByEmail(principal.getName());
-		
+
 		productsService.addProduct(original, user);
 		return "redirect:/product/details/" + id;
 	}
 
+	@RequestMapping("/product/list/update")
+	public String updateList(Model model, Principal principal) {
+		User user = usersService.getUserByEmail(principal.getName());
+		model.addAttribute("productList", productsService.getProducts());
+		model.addAttribute(user);
+		return "product/list :: divProducts";
+	}
 
+	@RequestMapping("/product/{id}/buy")
+	public String buyProduct(Model model, @PathVariable Long id, Principal principal) {
+		User user = usersService.getUserByEmail(principal.getName());
+		productsService.buy(id, user);
+		model.addAttribute(user);
+		return "product/list";
+	}
+	
+	@RequestMapping("/product/purchased")
+	public String getPurchased(Model model, Principal principal)
+	{
+		User user = usersService.getUserByEmail(principal.getName());
+		model.addAttribute("productList", productsService.getProductsPurchased(user));
+		model.addAttribute("user", user);
+		return "product/purchased";
+	}
 }

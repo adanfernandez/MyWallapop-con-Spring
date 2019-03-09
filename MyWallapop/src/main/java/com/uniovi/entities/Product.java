@@ -23,6 +23,15 @@ public class Product {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@ManyToOne
+	@JoinColumn(name = "buyer_id")
+	private User buyer;
+	
+	private Boolean isBuyed = false;
+
+	
+	
+
 	public Product(String title, String description, Double price) {
 		super();
 		this.title = title;
@@ -39,12 +48,6 @@ public class Product {
 	}
 
 	public Product() {
-	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
-				+ ", date=" + date + ", user=" + user.getEmail() + "]";
 	}
 
 	public Long getId() {
@@ -98,5 +101,35 @@ public class Product {
 	{
 		this.title = title;
 	}
+	
+	public User getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
+		setBuyed(true);
+	}
+
+	public boolean isBuyed() {
+		return isBuyed;
+	}
+
+	public void setBuyed(boolean buyed) {
+		this.isBuyed = buyed;
+	}
+
+	@Override
+	public String toString() {
+		
+		if(buyer == null)
+			return "Product [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
+					+ ", date=" + date + ", user=" + user.getEmail() + ", buyer=" + "no user" + ", isBuyed=" + isBuyed + "]";
+		else
+			return "Product [id=" + id + ", title=" + title + ", description=" + description + ", price=" + price
+					+ ", date=" + date + ", user=" + user.getEmail() + ", buyer=" + buyer.getEmail() + ", isBuyed=" + isBuyed + "]";
+	}
+	
+	
 
 }

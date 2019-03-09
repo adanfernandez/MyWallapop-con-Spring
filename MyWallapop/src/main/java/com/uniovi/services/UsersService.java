@@ -47,4 +47,8 @@ public class UsersService {
 		for (Long id : ids)
 			usersRepository.deleteById(id);
 	}
+
+	public void updateMoney(User user, Double price) {
+		usersRepository.updateMoney(user.getId(), price);
+	}
 }

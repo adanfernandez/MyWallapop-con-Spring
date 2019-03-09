@@ -25,6 +25,9 @@ public class User {
 	private Set<Product> products;
 	private double money;
 
+	@OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
+	private Set<Product> purchaseds;
+
 	private String password;
 	@Transient // propiedad que no se almacena e la tabla.
 	private String passwordConfirm;
@@ -106,14 +109,25 @@ public class User {
 	public void setMoney(double money) {
 		this.money = money;
 	}
-	
-	public String getRole()
-	{
+
+	public String getRole() {
 		return role;
 	}
-	
-	public void setRole(String role)
-	{
+
+	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Set<Product> getPurchaseds() {
+		return purchaseds;
+	}
+
+	public void setPurchaseds(Set<Product> purchaseds) {
+		this.purchaseds = purchaseds;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name	+ ", money=" + money + ", purchaseds=" + purchaseds + "]";
 	}
 }
