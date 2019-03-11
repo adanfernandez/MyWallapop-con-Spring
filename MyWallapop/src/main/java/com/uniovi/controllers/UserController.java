@@ -22,8 +22,6 @@ public class UserController {
 	@Autowired
 	private UsersService usersService;
 	
-	@Autowired
-	private ProductsService productsService;
 
 	@Autowired
 	private SecurityService securityService;
@@ -32,8 +30,10 @@ public class UserController {
 	private RolesService rolesService;
 	
 	@RequestMapping("/user/list")
-	public String getListado(Model model) {
-		model.addAttribute("usersList", usersService.getUsers());
+	public String getListado(Model model, Principal principal) {
+		User user = usersService.getUserByEmail(principal.getName());
+		System.out.println(user.getId());
+		model.addAttribute("usersList", usersService.findUsersMinusPrincipal(user));
 		return "user/list";
 	}
 
@@ -56,9 +56,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/user/delete", method=RequestMethod.POST)
-	public String delete(@RequestParam(name="checkbox_ids") List<Long> ids) {
-				
-		usersService.deleteUser((ArrayList<Long>)ids);
+	public String delete(@RequestParam(name="checkbox_ids") List<Long> ids, Principal principal) {
+		User user = usersService.getUserByEmail(principal.getName());
+		usersService.deleteUser((ArrayList<Long>)ids, user);
 		return "redirect:/user/list";
 	}
 

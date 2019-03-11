@@ -9,25 +9,26 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		
 
-		
-			<h2>Productos</h2>
+
+
+		<h2>Productos</h2>
 		<p>Los productos que figuran son los siguientes:</p>
-				
+
 		<form class="navbar-form" action="/product/list">
 			<div class="form-group">
 				<input name="searchText" type="text" class="form-control" size="50"
-						placeholder="Buscar por título de producto">
+					placeholder="Buscar por título de producto">
 			</div>
 			<button type="submit" class="btn btn-default">Buscar</button>
 		</form>
 
 
-		<div class="table-responsive" th:fragment="divProducts" id="divProducts">
+		<div class="table-responsive" th:fragment="divProducts"
+			id="divProducts">
 			<div th:replace="fragments/infoUser" />
 			<table class="table table-hover">
-			
+
 				<thead>
 					<tr>
 						<th class="col-md-3">Título</th>
@@ -44,26 +45,44 @@
 						<td th:text="${product.price}">10</td>
 						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
 						<td>
-							<div sec:authorize="hasRole('ROLE_STANDARD')" >
+							<div sec:authorize="hasRole('ROLE_STANDARD')">
 								<div th:if="${product.user.id == user.id}">
 									<p>Producto propio</p>
 								</div>
 								<div th:if="${!product.buyed && product.user.id != user.id}">
 									<button type="button" th:id="${'buyProduct' + product.id}"
-										 class="btn btn-info">Comprar</button>
-										 <script th:inline="javascript">
-											 /*<![CDATA[*/
-											$( "#buyProduct[[${product.id}]]" ).click(function() {
-												 $.get( "/product/[[${product.id}]]/buy", function( data ) {
-													 $("#divProducts").load('/product/list/update');
-													 });
-											 });
-											/*]]>*/
-										 </script>
+										class="btn btn-info">Comprar</button>
 								</div>
-								<div th:if="${product.buyed}">
-									<p>Comprado!</p>
-								</div>	 
+								<script th:inline="javascript">
+									/*<![CDATA[*/
+									$("#buyProduct[[${product.id}]]")
+											.click(function() 
+												{$.get("/product/[[${product.id}]]/buy",
+													function(data) 		
+													{
+															if([[${product.price}]] > [[${user.money}]])
+															{
+																alert("No posee suficiente dinero para efectuar el pago.");
+															}
+															
+															$("#divProducts").load('/product/list/update');
+													}
+												
+												);
+													
+
+									});
+									
+									
+									/*]]>*/
+								</script>
+							<p th:id="${'enoughMoney' + product.id}" hidden>No posee suficiente dinero</p>
+
+							</div>
+							<div th:if="${product.buyed}">
+								<p>Comprado!</p>
+							</div>
+
 							</div>
 						</td>
 					</tr>
