@@ -1,10 +1,14 @@
 package com.uniovi.controllers;
 
 import java.security.Principal;
+import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,15 +46,21 @@ public class ProductController {
 	}
 
 	@RequestMapping("/product/list")
-	public String getList(Model model, Principal principal,
+	public String getList(Model model, Pageable pageagle, Principal principal,
 			@RequestParam(value = "", required = false) String searchText) {
+
+		
+		Page<Product> products = new PageImpl<Product>(new LinkedList<Product>());
 		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
 
+		
 		if (searchText != null && !searchText.isEmpty()) {
-			model.addAttribute("productList", productsService.searchProductsByTitle(searchText));
+			products = productsService.searchProductsByTitle(pageagle, searchText);
 		} else {
-			model.addAttribute("productList", productsService.getProducts());
+			products = productsService.getProducts(pageagle);
 		}
+		model.addAttribute("page", products);
+		model.addAttribute("productList", products.getContent());
 		return "product/list";
 	}
 
@@ -121,18 +131,24 @@ public class ProductController {
 	}
 
 	@RequestMapping("/product/list/update")
-	public String updateList(Model model, Principal principal) {
+	public String updateList(Model model, Principal principal, Pageable pageable) {
 		User user = usersService.getUserByEmail(principal.getName());
-		model.addAttribute("productList", productsService.getProducts());
+		Page<Product> products = productsService.getProducts(pageable);
+		model.addAttribute("productList", products.getContent());
 		model.addAttribute(user);
+		//model.addAttribute("page", products);
 		return "product/list :: divProducts";
 	}
 
 	@RequestMapping("/product/{id}/buy")
-	public String buyProduct(Model model, @PathVariable Long id, Principal principal) {
+	public String buyProduct(Model model, @PathVariable Long id, Principal principal, Pageable pageable) {
 		User user = usersService.getUserByEmail(principal.getName());
+		Page<Product> products = productsService.getProducts(pageable);
+
 		productsService.buy(id, user);
 		model.addAttribute(user);
+		model.addAttribute("page", products);
+		System.out.println(model.containsAttribute("page"));
 		return "product/list";
 	}
 	

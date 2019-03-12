@@ -10,7 +10,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductsRepository extends CrudRepository<Product, Long>{
 
@@ -19,10 +20,13 @@ public interface ProductsRepository extends CrudRepository<Product, Long>{
 	List<Product> findAllByBuyer(User user);
 	
 	@Query("SELECT r FROM Product r WHERE (LOWER(r.title) LIKE LOWER(?1))")
-	List<Product> searchByTitle(String seachtext);
+	Page<Product> searchByTitle(Pageable pageable, String seachtext);
 	
 	@Modifying
 	@Transactional
 	@Query("UPDATE Product p SET p.isBuyed = true, p.buyer.id = ?2 WHERE p.id = ?1")
 	void buyProduct(Long id_product, Long id_user);
+	
+	
+	Page<Product> findAll(Pageable pageable); 
 }

@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.ProductsRepository;
+
 
 @Service
 public class ProductsService {
@@ -34,9 +37,8 @@ public class ProductsService {
 	 * 
 	 * @return
 	 */
-	public List<Product> getProducts() {
-		List<Product> products = new ArrayList<Product>();
-		productsRepository.findAll().forEach(products::add);
+	public Page<Product> getProducts(Pageable pageable) {
+		Page<Product> products = productsRepository.findAll(pageable);
 		return products;
 	}
 
@@ -108,10 +110,10 @@ public class ProductsService {
 	 * @param searchText
 	 * @return
 	 */
-	public List<Product> searchProductsByTitle(String searchText) {
+	public Page<Product> searchProductsByTitle(Pageable pageable, String searchText) {
 		searchText = "%"+searchText+"%";
-		List<Product> products = new ArrayList<Product>();
-		products = productsRepository.searchByTitle(searchText);
+		Page<Product> products = new PageImpl<Product>(new LinkedList<Product>());
+		products = productsRepository.searchByTitle(pageable, searchText);
 		return products;
 	}
 	

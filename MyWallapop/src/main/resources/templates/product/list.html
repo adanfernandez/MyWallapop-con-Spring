@@ -55,29 +55,26 @@
 								</div>
 								<script th:inline="javascript">
 									/*<![CDATA[*/
-									$("#buyProduct[[${product.id}]]")
-											.click(function() 
-												{$.get("/product/[[${product.id}]]/buy",
-													function(data) 		
-													{
-															if([[${product.price}]] > [[${user.money}]])
-															{
-																alert("No posee suficiente dinero para efectuar el pago.");
-															}
-															
-															$("#divProducts").load('/product/list/update');
-													}
-												
-												);
+									$("#buyProduct[[${product.id}]]").click(function() {
+										$.get("/product/[[${product.id}]]/buy", function(data) 		
+											{
+												if([[${product.price}]] > [[${user.money}]])
+												{
+													alert("No posee suficiente dinero para efectuar el pago.");
+												}
+												 var numberPage = [[${param.page}]];
+												 var urlUpdate = '/product/list/update';
+												 if (numberPage != null ){
+												 	urlUpdate += "?page="+numberPage[0];
+												 }												
+												$("#divProducts").load(urlUpdate);
+											}	
+										);
 													
 
 									});
-									
-									
 									/*]]>*/
 								</script>
-							<p th:id="${'enoughMoney' + product.id}" hidden>No posee suficiente dinero</p>
-
 							</div>
 							<div th:if="${product.buyed}">
 								<p>Comprado!</p>
@@ -88,8 +85,11 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
+		</div>	
 	</div>
+
+	
+		<footer th:replace="fragments/pagination"/>
 
 	<footer th:replace="fragments/footer" />
 
