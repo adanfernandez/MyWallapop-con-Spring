@@ -49,7 +49,7 @@ public class InsertSampleDataService {
 		
 		Set<Product> user1Desc = new HashSet<Product>() {
 			{
-				add(new Product("Titulo A1", "Descripción A1", 10.0, user1));
+				add(new Product("Titulo A1", "Descripción A1", 101.0, user1));
 				add(new Product("Titulo A2","Descripción A2", 9.0, user1));
 				add(new Product("Titulo A3","Descripción A3", 7.0, user1));
 				add(new Product("Titulo A4","Descripción A4", 6.5, user1));

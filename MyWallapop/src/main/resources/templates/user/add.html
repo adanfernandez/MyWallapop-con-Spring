@@ -5,13 +5,13 @@
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Agregar usuario</h2>
+		<h2 th:text="#{addUser.title}">Agregar usuario</h2>
 		<form class="form-horizontal" method="post" action="/user/add">
 
 
 
 			<div class="form-group">
-				<label class="control-label col-sm-2" for=”role”>Role:</label>
+				<label class="control-label col-sm-2" for=”role” th:text="#{addUser.role}">Role:</label>
 				<div class="col-sm-10">
 					<select id="role" class="form-control" name="role">
 						<option  th:value="${rolesList[0]}"
@@ -24,44 +24,44 @@
 
 
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="email">email:</label>
+				<label class="control-label col-sm-2" for="email" th:text="#{addUser.email}">email:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="email"
-						placeholder="Ejemplo: UO251162@uniovi.es" required="true" />
+						th:placeholder="#{placeholder.user.email}" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="name"><span>Nombre: </span></label>
+				<label class="control-label col-sm-2" for="name"><span th:text="#{addUser.name}">Nombre: </span></label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="name"
-						placeholder="Ejemplo: Adán" required="true" />
+						th:placeholder="#{placeholder.user.name}" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="lastName"><span>Apellidos: </span></label>
+				<label class="control-label col-sm-2" for="lastName"><span th:text="#{addUser.lastName}">Apellidos: </span></label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="lastName"
-						placeholder="Ejemplo: Fernández Sánchez" required="true" />
+						th:placeholder="#{placeholder.user.lastName}" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="password"><span>Contraseña:</span></label>
+				<label class="control-label col-sm-2" for="password"><span th:text="#{addUser.password}">Contraseña:</span></label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="password"
-						placeholder="Introduzca contraseña" />
+						th:placeholder="#{placeholder.user.password}" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="passwordConfirm"><span
+				<label class="control-label col-sm-2" for="passwordConfirm"><span th:text="#{addUser.repPassword}"
 					>Repita contraseña:</span></label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="passwordConfirm"
-						placeholder="Repita contraseña" />
+						th:placeholder="#{placeholder.user.repPassword}" />
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary">Agregar usuario:</button>
+					<button type="submit" class="btn btn-primary" th:text="#{addUser.title}">Agregar usuario:</button>
 				</div>
 			</div>
 		</form>

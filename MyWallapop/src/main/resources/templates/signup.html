@@ -11,28 +11,28 @@
 				<label class="control-label col-sm-2" for="email" th:text="#{signup.email}">email:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="email"
-						placeholder="99999999Y" required="true" />
+						th:placeholder="#{placeholder.user.email}" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="name" th:text="#{signup.name}">Nombre:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="name"
-						placeholder="Ejemplo: Juan" required="true" />
+						th:placeholder="#{placeholder.user.name}" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="lastName" th:text="#{signup.lastName}">Apellidos:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="lastName"
-						placeholder="Ejemplo: Peréz Almonte" required="true" />
+						th:placeholder="#{placeholder.user.lastName}" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="password" th:text="#{signup.password}">Password:</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="password"
-						placeholder="Entre el Password" />
+						th:placeholder="#{placeholder.user.password}" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -40,7 +40,7 @@
 					el Password:</label>
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="passwordConfirm"
-						placeholder="Repita el Password" />
+						th:placeholder="#{placeholder.user.repPassword}" />
 				</div>
 			</div>
 			<div class="form-group">

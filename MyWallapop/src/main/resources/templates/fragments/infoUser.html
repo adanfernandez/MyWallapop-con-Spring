@@ -1,10 +1,10 @@
 <div>
 	<p style="text-align: center">
-		<span><small>Email: </small></span><span><small
+		<span><small th:text="#{user.email}">Email: </small></span><span><small
 			th:text="${user.email}"></small></span>
 	</p>
 	<p style="text-align: center">
-		<span><small>Dinero disponible: </small></span><span><small
+		<span ><small th:text="#{user.moneyAvailable}">Dinero disponible: </small></span><span><small
 			th:text="${user.money}"></small> <span><small>€</small></span></span>
 	</p>
 </div>

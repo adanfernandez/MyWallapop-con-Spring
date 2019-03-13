@@ -5,22 +5,20 @@
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2>Usuarios</h2>
+		<h2 th:text="#{listuser.title}"></h2>
 		
-		<p>Los usuarios que actualmente figuran en el sistema son los
-			siguientes:</p>
+		<p th:text="#{listuser.description}">Los usuarios que actualmente figuran en el sistema son los
+			siguientes:
+		</p>
 			
-		
-		
-		
 			<div class="table-responsive">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>DNI</th>
-							<th>Nombre</th>
-							<th>Apellidos</th>
-							<th>Eliminar</th>
+							<th th:text="#{listuser.email}">Email</th>
+							<th th:text="#{listuser.name}">Nombre</th>
+							<th th:text="#{listuser.lastName}">Apellidos</th>
+							<th th:text="#{listuser.delete}">Eliminar</th>
 							<th class="col-md-1"></th>
 							<th class="col-md-1"></th>
 						</tr>
@@ -32,8 +30,8 @@
 							<td th:text="${user.lastName}">Apellidos del alumno</td>
 							<form  class="form-horizontal" method="post" action="/user/delete">
 							<td><input type="checkbox" name="checkbox_ids" th:value="${user.id}"></td>
-							<td><a th:href="${'/user/details/' + user.id}">detalles</a></td>
-							<td><a th:href="${'/user/edit/' + user.id}">modificar</a></td>
+							<td><a th:href="${'/user/details/' + user.id}" th:text="#{listuser.details}">detalles</a></td>
+							<td><a th:href="${'/user/edit/' + user.id}" th:text="#{listuser.edit}">modificar</a></td>
 							
 						</tr>
 					</tbody>
@@ -42,7 +40,7 @@
 			
 			<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">Eliminar usuarios seleccionados</button>
+						<button type="submit" class="btn btn-primary" th:text="#{listuser.deleteButton}">Eliminar usuarios seleccionados</button>
 					</div>
 			</div>
 		</form>
