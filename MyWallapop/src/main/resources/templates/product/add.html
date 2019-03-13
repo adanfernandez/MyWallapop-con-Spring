@@ -10,17 +10,17 @@
 
 		<div th:replace="fragments/infoUser" />
 
-		<h2>Agregar producto</h2>
+		<h2 th:text="#{product.addProducts}">Agregar producto</h2>
 		<form class="form-horizontal" method="post" action="/product/add">
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="title">Titulo:</label>
+				<label class="control-label col-sm-2" for="title" th:text="#{addProduct.title}">Titulo:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="title"
 						placeholder="Ejemplo: lámpara de escritorio" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="description">Descripcion:</label>
+				<label class="control-label col-sm-2" for="description" th:text="#{addProduct.description}">Descripcion:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="description"
 						placeholder="Introduzca una descripción del producto"
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="pwd">Precio:</label>
+				<label class="control-label col-sm-2" for="pwd" th:text="#{addProduct.price}">Precio:</label>
 				<div class="col-sm-10">
 					<input type="number" class="form-control" name="price"
 						placeholder="Cantidad en euros" required="true" />
@@ -36,7 +36,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary">Enviar</button>
+					<button type="submit" class="btn btn-primary" th:text="#{product.addProducts}">Enviar</button>
 				</div>
 			</div>
 		</form>

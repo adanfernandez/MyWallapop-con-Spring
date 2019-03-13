@@ -10,15 +10,15 @@
 
 	<div class="container">
 		<div th:replace="fragments/infoUser" />
-		<p>Estos son los productos que tienes a la venta:</p>
+		<p th:text="#{ownProducts.message}">Estos son los productos que tienes a la venta:</p>
 		<div class="table-responsive">
 			<table class="table table-hover" th:fragment="tableProducts"
 				id="tableProducts">
 				<thead>
 					<tr>
-						<th class="col-md-1">Título</th>
-						<th>Descripción</th>
-						<th>Precio (€)</th>
+						<th class="col-md-1" th:text="#{ownProducts.title}">Título</th>
+						<th th:text="#{ownProducts.description}">Descripción</th>
+						<th th:text="#{ownProducts.price}">Precio (€)</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
@@ -29,9 +29,9 @@
 						<td th:text="${product.title}">1</td>
 						<td th:text="${product.description}">Ejercicio 1</td>
 						<td th:text="${product.price}">10</td>
-						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
-						<td><a th:href="${'/product/edit/' + product.id}">modificar</a></td>
-						<td><a th:href="${'/product/delete/' + product.id}">eliminar</a></td>
+						<td><a th:href="${'/product/details/' + product.id}" th:text="#{ownProducts.details}">detalles</a></td>
+						<td><a th:href="${'/product/edit/' + product.id}" th:text="#{ownProducts.edit}">modificar</a></td>
+						<td><a th:href="${'/product/delete/' + product.id}" th:text="#{ownProducts.delete}">eliminar</a></td>
 					</tr>
 				</tbody>
 			</table>

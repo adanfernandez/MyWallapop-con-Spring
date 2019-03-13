@@ -95,7 +95,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, Principal principal) {
+		User user = usersService.getUserByEmail(principal.getName());
+		model.addAttribute("user", user);
 		return "home";
 	}
 	

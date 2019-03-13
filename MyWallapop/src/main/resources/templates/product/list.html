@@ -12,15 +12,15 @@
 
 
 
-		<h2>Productos</h2>
-		<p>Los productos que figuran son los siguientes:</p>
+		<h2 th:text="#{listProduct.meanMessage}">Productos</h2>
+		<p th:text="#{listProduct.message}">Los productos que figuran son los siguientes:</p>
 
 		<form class="navbar-form" action="/product/list">
 			<div class="form-group">
 				<input name="searchText" type="text" class="form-control" size="50"
 					placeholder="Buscar por título de producto">
 			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
+			<button type="submit" class="btn btn-default" th:text="#{listProduct.search}">Buscar</button>
 		</form>
 
 
@@ -31,9 +31,9 @@
 
 				<thead>
 					<tr>
-						<th class="col-md-3">Título</th>
-						<th class="col-md-3">Descripción</th>
-						<th class="col-md-3">Precio (€)</th>
+						<th class="col-md-3" th:text="#{listProduct.title}">Título</th>
+						<th class="col-md-3" th:text="#{listProduct.description}">Descripción</th>
+						<th class="col-md-3" th:text="#{listProduct.price}">Precio (€)</th>
 						<th class="col-md-3"></th>
 
 					</tr>
@@ -43,15 +43,15 @@
 						<td th:text="${product.title}">1</td>
 						<td th:text="${product.description}">Ejercicio 1</td>
 						<td th:text="${product.price}">10</td>
-						<td><a th:href="${'/product/details/' + product.id}">detalles</a></td>
+						<td><a th:href="${'/product/details/' + product.id}" th:text="#{listProduct.details}">detalles</a></td>
 						<td>
 							<div sec:authorize="hasRole('ROLE_STANDARD')">
 								<div th:if="${product.user.id == user.id}">
-									<p>Producto propio</p>
+									<p th:text="#{listProduct.ownProduct}">Producto propio</p>
 								</div>
 								<div th:if="${!product.buyed && product.user.id != user.id}">
 									<button type="button" th:id="${'buyProduct' + product.id}"
-										class="btn btn-info">Comprar</button>
+										class="btn btn-info" th:text="#{listProduct.buy}">Comprar</button>
 								</div>
 								<script th:inline="javascript">
 									/*<![CDATA[*/
@@ -60,7 +60,8 @@
 											{
 												if([[${product.price}]] > [[${user.money}]])
 												{
-													alert("No posee suficiente dinero para efectuar el pago.");
+													var mensaje = "#{listProduct.notEnoughMoney}";
+													alert(mensaje);
 												}
 												 var numberPage = [[${param.page}]];
 												 var urlUpdate = '/product/list/update';
@@ -75,11 +76,9 @@
 									});
 									/*]]>*/
 								</script>
-							</div>
 							<div th:if="${product.buyed}">
-								<p>Comprado!</p>
+								<p th:text="#{listProduct.buyed}">Comprado</p>
 							</div>
-
 							</div>
 						</td>
 					</tr>
