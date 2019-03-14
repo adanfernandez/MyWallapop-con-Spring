@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 import com.uniovi.services.ProductsService;
 import com.uniovi.services.UsersService;
+import com.uniovi.validators.AddProductFormValidator;
 
 @Controller
 public class ProductController {
@@ -33,6 +36,9 @@ public class ProductController {
 
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private AddProductFormValidator addProductFormValidator;
 
 	@RequestMapping("/product/myProducts")
 	public String getMyProducts(Model model, Principal principal) {
@@ -66,14 +72,18 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/add")
 	public String getProduct(Model model, Principal principal) {
-		// model.addAttribute("usersList", usersService.getUsers());
+		model.addAttribute("product", new Product());
 		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
 		return "product/add";
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
-	public String setProduct(@ModelAttribute Product product, Principal principal) {
-
+	public String setProduct(@Validated @ModelAttribute Product product, Principal principal, BindingResult result, Model model) {
+		model.addAttribute("user", usersService.getUserByEmail(principal.getName()));
+		addProductFormValidator.validate(product, result);
+		if (result.hasErrors()) {
+			return "/product/add";
+		}
 		User user = usersService.getUserByEmail(principal.getName());
 		product.setUser(user);
 		productsService.addProduct(product, user);
