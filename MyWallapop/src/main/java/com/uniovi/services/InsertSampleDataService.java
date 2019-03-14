@@ -48,6 +48,11 @@ public class InsertSampleDataService {
 		user6.setRole(rolesService.getRoles()[1]);
 		
 		Set<Product> user1Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				add(new Product("Titulo A1", "Descripción A1", 101.0, user1));
 				add(new Product("Titulo A2","Descripción A2", 9.0, user1));
@@ -58,6 +63,11 @@ public class InsertSampleDataService {
 		user1.setProducts(user1Desc);
 		
 		Set<Product> user2Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				add(new Product("Titulo B1","Descripción B1", 5.0, user2));
 				add(new Product("Titulo B2","Descripción B2", 4.3, user2));
@@ -68,6 +78,11 @@ public class InsertSampleDataService {
 		user2.setProducts(user2Desc);
 		
 		Set<Product> user3Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				;
 				add(new Product("Titulo C1","Descripción C1", 5.5, user3));
@@ -78,6 +93,11 @@ public class InsertSampleDataService {
 		user3.setProducts(user3Desc);
 		
 		Set<Product> user4Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			{
 				add(new Product("Titulo D1","Descripción D1", 10.0, user4));
 				add(new Product("Titulo D2","Descripción D2", 8.0, user4));
