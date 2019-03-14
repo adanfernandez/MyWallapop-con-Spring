@@ -2,18 +2,12 @@ package com.uniovi.validators;
 
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
-import com.uniovi.services.ProductsService;
-import com.uniovi.services.UsersService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.*;
 
 @Component
 public class AddProductFormValidator implements Validator {
 	
-	@Autowired
-	private ProductsService productsService;
-
 	@Override
 	public boolean supports(Class<?> aClass) {
 		return User.class.equals(aClass);
@@ -30,7 +24,7 @@ public class AddProductFormValidator implements Validator {
 		if (product.getTitle().length() < 5 || product.getTitle().length() > 24) {
 			errors.rejectValue("title", "Error.addProduct.title.length");
 		}
-		if (product.getTitle().length() < 10) {
+		if (product.getDescription().length() < 10) {
 			errors.rejectValue("description", "Error.addProduct.description.length");
 		}
 		if (product.getPrice() <= 0) {

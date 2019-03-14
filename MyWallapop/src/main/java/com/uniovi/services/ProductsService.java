@@ -129,22 +129,8 @@ public class ProductsService {
 				|| product.getUser().equals(user)
 				|| product.isBuyed())){
 			productsRepository.buyProduct(id, user.getId());
-			usersService.updateMoney(user, product.getPrice());
-			
-/*			for(Product p : productsRepository.findAll())
-			{
-				System.out.println("LISTA DE PRODUCTOS");
-				System.out.println(p);
-			}
-			System.out.println("\n\n\n");
-
-			for(User u : usersService.getUsers()) {
-				System.out.println("LISTA DE USUARIOS");
-				System.out.println(u);
-			}
-			
-			System.out.println("\n\n\n\n\n\n\n");
-*/		
+			usersService.addMoney(product.getUser(), product.getPrice());
+			usersService.substractMoney(user, product.getPrice());
 		}
 	}
 	

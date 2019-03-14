@@ -1,14 +1,12 @@
 package com.uniovi.repositories;
 
-import com.uniovi.entities.*;
-
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import com.uniovi.entities.User;
 
 public interface UsersRepository extends CrudRepository<User, Long> {
 	
@@ -17,7 +15,12 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 	@Modifying
 	@Transactional
 	@Query("UPDATE User u SET u.money = (u.money - ?2) WHERE u.id = ?1")
-	void updateMoney(Long id, Double price);
+	void substractMoney(Long id, Double price);
+
+	@Modifying
+	@Transactional
+	@Query("UPDATE User u SET u.money = (u.money + ?2) WHERE u.id = ?1")
+	void addMoney(Long id, Double price);
 	
 /*	//@Query("SELECT u FROM User where u.id != (?1)")
 	@Query("SELECT u FROM USER")

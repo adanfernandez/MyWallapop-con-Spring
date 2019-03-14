@@ -52,12 +52,7 @@
 								<div th:if="${!product.buyed && product.user.id != user.id}">
 									<button type="button" th:id="${'buyProduct' + product.id}"
 										class="btn btn-info" th:value="#{listProduct.buy}">Comprar</button>
-								</div>
-								
-								
-								
-								
-								
+								</div>									
 								<p hidden th:text="#{listProduct.notEnoughMoney}" id="enough_money"></p>
 								<script th:inline="javascript">
 									/*<![CDATA[*/

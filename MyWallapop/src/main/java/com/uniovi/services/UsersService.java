@@ -10,7 +10,7 @@ import com.uniovi.repositories.UsersRepository;
 
 @Service
 public class UsersService {
-	
+
 	@Autowired
 	private UsersRepository usersRepository;
 
@@ -43,22 +43,28 @@ public class UsersService {
 		return usersRepository.findByEmail(email);
 	}
 
-	public void deleteUser(ArrayList<Long> ids, User user) {
-		if(!ids.contains(user.getId()))
-		{
-			for (Long id : ids)
-				usersRepository.deleteById(id);
+	public void deleteUser(List<Long> ids, User user) {
+		if (ids != null) {
+			if (!ids.contains(user.getId())) {
+				for (Long id : ids)
+					usersRepository.deleteById(id);
+			}
 		}
 	}
 
-	public void updateMoney(User user, Double price) {
-		usersRepository.updateMoney(user.getId(), price);
-	}
 	
-	public List<User> findUsersMinusPrincipal(User user)
-	{
-		List<User> userList =  this.getUsers();
+
+	public List<User> findUsersMinusPrincipal(User user) {
+		List<User> userList = this.getUsers();
 		userList.remove(user);
 		return userList;
+	}
+
+	public void substractMoney(User user, Double price) {
+		usersRepository.substractMoney(user.getId(), price);
+	}
+	
+	public void addMoney(User user, Double price) {
+		usersRepository.addMoney(user.getId(), price);
 	}
 }

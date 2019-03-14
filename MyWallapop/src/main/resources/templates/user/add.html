@@ -6,7 +6,7 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2 th:text="#{addUser.title}">Agregar usuario</h2>
-		<form class="form-horizontal" method="post" action="/user/add">
+		<form class="form-horizontal" method="post" action="/user/add" th:object="${user}">
 
 
 
@@ -29,6 +29,10 @@
 					<input type="text" class="form-control" name="email"
 						th:placeholder="#{placeholder.user.email}" required="true" />
 				</div>
+				
+				<span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+				
+				
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="name"><span th:text="#{addUser.name}">Nombre: </span></label>
@@ -36,6 +40,9 @@
 					<input type="text" class="form-control" name="name"
 						th:placeholder="#{placeholder.user.name}" required="true" />
 				</div>
+				
+				<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="lastName"><span th:text="#{addUser.lastName}">Apellidos: </span></label>
@@ -43,6 +50,9 @@
 					<input type="text" class="form-control" name="lastName"
 						th:placeholder="#{placeholder.user.lastName}" required="true" />
 				</div>
+				
+				<span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="password"><span th:text="#{addUser.password}">Contraseña:</span></label>
@@ -50,6 +60,9 @@
 					<input type="password" class="form-control" name="password"
 						th:placeholder="#{placeholder.user.password}" />
 				</div>
+				
+			<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+				
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="passwordConfirm"><span th:text="#{addUser.repPassword}"
@@ -58,6 +71,9 @@
 					<input type="password" class="form-control" name="passwordConfirm"
 						th:placeholder="#{placeholder.user.repPassword}" />
 				</div>
+				
+				<span class="text-danger" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}">
+				
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">

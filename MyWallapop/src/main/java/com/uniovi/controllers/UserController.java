@@ -1,24 +1,25 @@
 package com.uniovi.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import com.uniovi.entities.*;
-import com.uniovi.services.ProductsService;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
+import com.uniovi.validators.AddUserFormValidator;
 import com.uniovi.validators.SignUpFormValidator;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 public class UserController {
@@ -34,6 +35,9 @@ public class UserController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
+	
+	@Autowired
+	private AddUserFormValidator addUserFormValidator;
 
 	@RequestMapping("/user/list")
 	public String getListado(Model model, Principal principal) {
@@ -46,11 +50,17 @@ public class UserController {
 	@RequestMapping(value = "/user/add")
 	public String getUser(Model model) {
 		model.addAttribute("rolesList", rolesService.getRoles());
+		model.addAttribute("user", new User());
 		return "user/add";
 	}
 
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String setUser(@ModelAttribute User user) {
+	public String setUser(@Validated @ModelAttribute User user, BindingResult result, Model model) {
+		addUserFormValidator.validate(user, result);
+		if (result.hasErrors()) {
+			model.addAttribute("rolesList", rolesService.getRoles());
+			return "/user/add";
+		}
 		usersService.addUser(user);
 		return "redirect:/user/list";
 	}
@@ -62,9 +72,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam(name = "checkbox_ids") List<Long> ids, Principal principal) {
+	public String delete(@RequestParam(name = "checkbox_ids", required = false) List<Long> ids, Principal principal) {
 		User user = usersService.getUserByEmail(principal.getName());
-		usersService.deleteUser((ArrayList<Long>) ids, user);
+		usersService.deleteUser(ids, user);
 		return "redirect:/user/list";
 	}
 
