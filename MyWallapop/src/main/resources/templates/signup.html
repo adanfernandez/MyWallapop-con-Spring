@@ -6,12 +6,15 @@
 	<nav th:replace="fragments/nav" />
 	<div class="container">
 		<h2 th:text="#{signup.message}">Registráte como usuario</h2>
-		<form class="form-horizontal" method="post" action="/signup">
+		<form class="form-horizontal" method="post" action="/signup" th:object="${user}">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="email" th:text="#{signup.email}">email:</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="email"
 						th:placeholder="#{placeholder.user.email}" required="true" />
+					
+					  <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+						
 				</div>
 			</div>
 			<div class="form-group">
@@ -19,6 +22,9 @@
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="name"
 						th:placeholder="#{placeholder.user.name}" required="true" />
+					
+					<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" />	
+					
 				</div>
 			</div>
 			<div class="form-group">
@@ -26,6 +32,9 @@
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="lastName"
 						th:placeholder="#{placeholder.user.lastName}" required="true" />
+					
+					<span class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" />
+					
 				</div>
 			</div>
 			<div class="form-group">
@@ -33,6 +42,9 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="password"
 						th:placeholder="#{placeholder.user.password}" />
+						
+					<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
+						
 				</div>
 			</div>
 			<div class="form-group">
@@ -41,6 +53,9 @@
 				<div class="col-sm-10">
 					<input type="password" class="form-control" name="passwordConfirm"
 						th:placeholder="#{placeholder.user.repPassword}" />
+					
+					<span class="text-danger" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}" />	
+					
 				</div>
 			</div>
 			<div class="form-group">
