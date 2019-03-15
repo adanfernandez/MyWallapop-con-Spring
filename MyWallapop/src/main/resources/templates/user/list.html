@@ -5,7 +5,7 @@
 	<!-- Barra de Navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2 th:text="#{listuser.title}"></h2>
+		<h2 th:text="#{listuser.title}" id="listUser"></h2>
 		
 		<p th:text="#{listuser.description}">Los usuarios que actualmente figuran en el sistema son los
 			siguientes:
@@ -40,7 +40,7 @@
 			
 			<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary" th:text="#{listuser.deleteButton}">Eliminar usuarios seleccionados</button>
+						<button type="submit" class="btn btn-primary" id="buttonDelete" th:text="#{listuser.deleteButton}">Eliminar usuarios seleccionados</button>
 					</div>
 			</div>
 		</form>

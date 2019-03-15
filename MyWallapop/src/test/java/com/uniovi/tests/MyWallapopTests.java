@@ -15,7 +15,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.uniovi.tests.pageobjects.PO_AddProduct;
 import com.uniovi.tests.pageobjects.PO_HomeView;
+import com.uniovi.tests.pageobjects.PO_ListView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_Properties;
@@ -284,7 +286,8 @@ public class MyWallapopTests {
 	// está autenticado.
 	@Test
 	public void PR11() {
-		// De primeras estamos sin identificar, por lo que el botón de logout no debería de estar disponible
+		// De primeras estamos sin identificar, por lo que el botón de logout no debería
+		// de estar disponible
 		PO_HomeView.checkNoElement(driver, "logout");
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
@@ -298,129 +301,276 @@ public class MyWallapopTests {
 		PO_HomeView.checkNoElement(driver, "logout");
 	}
 
-	// PR12. Mostrar el listado de usuarios y comprobar que se muestran todos los que existen en el sistema. 
+	// PR12. Mostrar el listado de usuarios y comprobar que se muestran todos los
+	// que existen en el sistema.
 	@Test
 	public void PR12() {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
-		//Pinchamos en la opción de menu de Usuarios: //li[contains(@id, 'marks-menu')]/a
+		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
+		// 'marks-menu')]/a
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
 		elementos.get(0).click();
-		//Listado de usuarios
+		// Listado de usuarios
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
 		elementos.get(0).click();
 		// Contamos el número de filas de notas
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		//En total hay 7 usuarios contando el administrador, por eso tendrían que salir 6
+		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
+		// 6
 		assertTrue(elementos.size() == 6);
-		
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR13. Ir a la lista de usuarios, borrar el primer usuario de la lista,
+	// comprobar que la lista se actualiza y dicho usuario desaparece.
 	@Test
 	public void PR13() {
 
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
+		// 'marks-menu')]/a
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		// Listado de usuarios
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+		elementos.get(0).click();
+		// Checkeamos el primer elemento
+		elementos = driver.findElements(By.name("checkbox_ids"));
+		elementos.get(0).click();
+		// Clickamos en el botón de eliminar
+		PO_ListView.clickOption(driver, "buttonDelete", "@id", "buttonDelete");
+		// PO_ListView.clickOption(driver, "buttonDelete", "class", "btn btn-primary");
+
+		// Contamos el número de filas de notas
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
+		// 6. Al eliminar uno, deberían de salir 5.
+		assertTrue(elementos.size() == 5);
+
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR14. Ir a la lista de usuarios, borrar el último usuario de la lista,
+	// comprobar que la lista se actualiza y dicho usuario desaparece.
 	@Test
 	public void PR14() {
 
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
+		// 'marks-menu')]/a
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		// Listado de usuarios
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+		elementos.get(0).click();
+		// Checkeamos el ultimo elemento
+		elementos = driver.findElements(By.name("checkbox_ids"));
+		elementos.get(elementos.size() - 1).click();
+		// Clickamos en el botón de eliminar
+		PO_ListView.clickOption(driver, "buttonDelete", "@id", "buttonDelete");
+
+		// Contamos el número de filas de notas
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
+		// 6. Al eliminar uno, deberían de salir 5.
+		assertTrue(elementos.size() == 5);
+
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR15. Ir a la lista de usuarios, borrar 3 usuarios, comprobar que la lista se
+	// actualiza y dichosusuarios desaparecen.
 	@Test
 	public void PR15() {
-
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
+		// 'marks-menu')]/a
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		// Listado de usuarios
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+		elementos.get(0).click();
+		// Checkeamos el ultimo elemento
+		elementos = driver.findElements(By.name("checkbox_ids"));
+		elementos.get(0).click();
+		elementos.get(1).click();
+		elementos.get(2).click();
+		// Clickamos en el botón de eliminar
+		PO_ListView.clickOption(driver, "buttonDelete", "@id", "buttonDelete");
+		// Contamos el número de filas de notas
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
+		// 6. Al eliminar uno, deberían de salir 5.
+		assertTrue(elementos.size() == 3);
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR16. Ir al formulario de alta de oferta, rellenarla con datos válidos y
+	// pulsar el botón Submit.
+	// Comprobar que la oferta sale en el listado de ofertas de dicho usuario
 	@Test
 	public void PR16() {
 
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "pedro@pedro", "123456");
+		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
+		// 'marks-menu')]/a
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/add')]");
+		elementos.get(0).click();
+		//Entramos en el formulario para añadir la oferta
+		PO_AddProduct.fillForm(driver, "Flexo de estudio", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
+		//Miramos si está añadido en nuestras ofertas.
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'/product/myProducts')]");
+		elementos.get(0).click();
+		PO_View.checkElement(driver, "text", "Flexo de estudio");
+		PO_View.checkElement(driver, "text", "Flexo de estudio excelente para esas interminables noches haciendo SDI!");
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR17. al formulario de alta de oferta, rellenarla con datos inválidos (campo
+	// título vacío) y pulsar el botón Submit. Comprobar que se muestra el mensaje de campo obligatorio
 	@Test
 	public void PR17() {
-
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "pedro@pedro", "123456");
+		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
+		// 'marks-menu')]/a
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/add')]");
+		elementos.get(0).click();
+		//Entramos en el formulario para añadir la oferta
+		PO_AddProduct.fillForm(driver, "", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
+		//Al tener la validación en local y servidor, saltará por parte de local en primer lugar al ser un campo requerido
+		//Completamos de nuevo el formulario
+		PO_AddProduct.fillForm(driver, "1", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
+		PO_View.checkElement(driver, "text", "El título debe de conteer entre 5 y 24 caracteres");
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR18. Mostrar el listado de ofertas para dicho usuario y comprobar que se
+	// muestran todas los que
+	// existen para este usuario.
 	@Test
 	public void PR18() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR19. Ir a la lista de ofertas, borrar la primera oferta de la lista,
+	// comprobar que la lista se actualiza y
+	// que la oferta desaparece.
 	@Test
 	public void PR19() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR20. Ir a la lista de ofertas, borrar la última oferta de la lista,
+	// comprobar que la lista se actualiza y
+	// que la oferta desaparece
 	@Test
 	public void PR20() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR21. acer una búsqueda con el campo vacío y comprobar que se muestra la
+	// página que
+	// corresponde con el listado de las ofertas existentes en el sistema
 	@Test
 	public void PR21() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR22. Hacer una búsqueda escribiendo en el campo un texto que no exista y
+	// comprobar que se
+	// muestra la página que corresponde, con la lista de ofertas vacía.
 	@Test
 	public void PR22() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR23. Sobre una búsqueda determinada (a elección de desarrollador), comprar
+	// una oferta que deja
+	// un saldo positivo en el contador del comprobador. Y comprobar que el contador
+	// se actualiza
+	// correctamente en la vista del comprador.
 	@Test
 	public void PR23() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR24. Sobre una búsqueda determinada (a elección de desarrollador), comprar
+	// una oferta que deja
+	// un saldo 0 en el contador del comprobador. Y comprobar que el contador se
+	// actualiza correctamente en
+	// la vista del comprador.
 	@Test
 	public void PR24() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR21. Sobre una búsqueda determinada (a elección de desarrollador), intentar
+	// comprar una oferta
+	// que esté por encima de saldo disponible del comprador. Y comprobar que se
+	// muestra el mensaje de
+	// saldo no suficiente.
 	@Test
 	public void PR25() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
+	// Comprobar que aparecen
+	// las ofertas que deben aparecer.
 	@Test
 	public void PR26() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR27. Visualizar al menos cuatro páginas en Español/Inglés/Español
+	// (comprobando que algunas
+	// de las etiquetas cambian al idioma correspondiente). Página
+	// principal/Opciones Principales de
+	// Usuario/Listado de Usuarios de Admin/Vista de alta de Oferta.
 	@Test
 	public void PR27() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR28. Intentar acceder sin estar autenticado a la opción de listado de
+	// usuarios del administrador. Se
+	// deberá volver al formulario de login.
 	@Test
 	public void PR28() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR29. Intentar acceder sin estar autenticado a la opción de listado de
+	// ofertas propias de un usuario
+	// estándar. Se deberá volver al formulario de login.
 	@Test
 	public void PR29() {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR30. Estando autenticado como usuario estándar intentar acceder a la opción
+	// de listado de
+	// usuarios del administrador. Se deberá indicar un mensaje de acción prohibida.
+
 	@Test
 	public void PR30() {
 
