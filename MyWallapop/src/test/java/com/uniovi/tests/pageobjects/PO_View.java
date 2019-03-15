@@ -39,6 +39,7 @@ public class PO_View {
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, "text", p.getString(key, locale), getTimeout());
 		return elementos;
 	}
+	
 	/**
 	 *  Espera por la visibilidad de un elemento/s en la vista actualmente cargandose en driver..
 	 * 
@@ -50,5 +51,17 @@ public class PO_View {
 	static public List<WebElement> checkElement(WebDriver driver, String type, String text) {
 		List<WebElement> elementos = SeleniumUtils.EsperaCargaPagina(driver, type, text, getTimeout());
 		return elementos;		
+	}
+	
+	/**
+	 *  Espera por la visibilidad de un elemento/s en la vista actualmente cargandose en driver..
+	 * 
+	 * @param driver: apuntando al navegador abierto actualmente.
+	 * @param type: 
+	 * @param text:
+	 * @return Se retornará la lista de elementos resultantes de la búsqueda.
+	 */
+	static public void checkNoElement(WebDriver driver, String text) {
+		SeleniumUtils.textoNoPresentePagina(driver, text);		
 	}
 }

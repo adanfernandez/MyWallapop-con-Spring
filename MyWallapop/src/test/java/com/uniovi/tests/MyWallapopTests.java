@@ -170,7 +170,7 @@ public class MyWallapopTests {
 		PO_View.checkElement(driver, "text", "Registrate");
 	}
 
-	// PR01. Registro de Usuario con datos inválidos(repetición de contraseña
+	// PR03. Registro de Usuario con datos inválidos(repetición de contraseña
 	// inválida).
 	@Test
 	public void PR03() {
@@ -183,7 +183,7 @@ public class MyWallapopTests {
 		PO_View.checkKey(driver, "Error.signup.passwordConfirm.coincidence", PO_Properties.getSPANISH());
 	}
 
-	// PR01. Registro de Usuario con datos inválidos (email existente).
+	// PR04. Registro de Usuario con datos inválidos (email existente).
 	@Test
 	public void PR04() {
 		// Vamos al formulario de registro
@@ -263,22 +263,59 @@ public class MyWallapopTests {
 
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR10. Hacer click en la opción de salir de sesión y comprobar que se redirige
+	// a la página de inicio
+	// de sesión (Login).
 	@Test
 	public void PR10() {
-
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "pedro@pedro", "123456");
+		// Comprobamos que entramos en la pagina privada del usuario
+		PO_View.checkElement(driver, "text", "Gestión de productos");
+		// Seleccionamos el botón de cerrar sesión
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		// Comprobamos que estamos en la página de login
+		PO_View.checkElement(driver, "text", "Identifícate");
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR11. Comprobar que el botón cerrar sesión no está visible si el usuario no
+	// está autenticado.
 	@Test
 	public void PR11() {
-
+		// De primeras estamos sin identificar, por lo que el botón de logout no debería de estar disponible
+		PO_HomeView.checkNoElement(driver, "logout");
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "pedro@pedro", "123456");
+		// Comprobamos que entramos en la pagina privada del usuario
+		PO_View.checkElement(driver, "text", "Gestión de productos");
+		// Seleccionamos el botón de cerrar sesión
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		// Comprobamos que no sale el botón
+		PO_HomeView.checkNoElement(driver, "logout");
 	}
 
-	// PR01. Acceder a la página principal /
+	// PR12. Mostrar el listado de usuarios y comprobar que se muestran todos los que existen en el sistema. 
 	@Test
 	public void PR12() {
-
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		//Pinchamos en la opción de menu de Usuarios: //li[contains(@id, 'marks-menu')]/a
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		//Listado de usuarios
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+		elementos.get(0).click();
+		// Contamos el número de filas de notas
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		//En total hay 7 usuarios contando el administrador, por eso tendrían que salir 6
+		assertTrue(elementos.size() == 6);
+		
 	}
 
 	// PR01. Acceder a la página principal /
