@@ -51,7 +51,7 @@
 								</div>
 								<div th:if="${!product.buyed && product.user.id != user.id}">
 									<button type="button" th:id="${'buyProduct' + product.id}"
-										class="btn btn-info" th:value="#{listProduct.buy}">Comprar</button>
+										class="btn btn-info" th:value="#{listProduct.buy}" name="buyButton">Comprar</button>
 								</div>									
 								<p hidden th:text="#{listProduct.notEnoughMoney}" id="enough_money"></p>
 								<script th:inline="javascript">

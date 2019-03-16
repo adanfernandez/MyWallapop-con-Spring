@@ -59,10 +59,10 @@ public class MyWallapopTests {
 
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private ProductsService productsService;
-	
+
 	@Autowired
 	private RolesService rolesService;
 	@Autowired
@@ -107,35 +107,34 @@ public class MyWallapopTests {
 		User user1 = new User("pedro@pedro", "Pedro", "Díaz");
 		user1.setPassword("123456");
 		user1.setRole(rolesService.getRoles()[0]);
-		
+
 		User user2 = new User("lucas@lucas", "Lucas", "Núñez");
 		user2.setPassword("123456");
 		user2.setRole(rolesService.getRoles()[0]);
-		
+
 		User user3 = new User("maria@maria", "María", "Rodríguez");
 		user3.setPassword("123456");
 		user3.setRole(rolesService.getRoles()[0]);
-		
+
 		User user4 = new User("marta@marta", "Marta", "Almonte");
 		user4.setPassword("123456");
 		user4.setRole(rolesService.getRoles()[0]);
-		
+
 		User user5 = new User("pelayo@pelayo", "Pelayo", "Valdes");
 		user5.setPassword("123456");
 		user5.setRole(rolesService.getRoles()[0]);
-		
+
 		User user6 = new User("admin@admin", "Edward", "Núñez");
 		user6.setPassword("admin");
 		user6.setRole(rolesService.getRoles()[1]);
-		
+
 		usersService.addUser(user1);
 		usersService.addUser(user2);
 		usersService.addUser(user3);
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
-		
-		
+
 		Set<Product> user1Desc = new HashSet<Product>() {
 			/**
 			 * 
@@ -143,13 +142,13 @@ public class MyWallapopTests {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new Product("Titulo A1", "Descripción A1", 101.0, user1));
-				add(new Product("Titulo A2","Descripción A2", 9.0, user1));
-				add(new Product("Titulo A3","Descripción A3", 7.0, user1));
-				add(new Product("Titulo A4","Descripción A4", 6.5, user1));
+				add(new Product("Titulo A1", "Descripción A1", 100.0, user1));
+				add(new Product("Titulo A2", "Descripción A2", 9.0, user1));
+				add(new Product("Titulo A3", "Descripción A3", 7.0, user1));
+				add(new Product("Titulo A4", "Descripción A4", 6.5, user1));
 			}
 		};
-		
+
 		Set<Product> user2Desc = new HashSet<Product>() {
 			/**
 			 * 
@@ -157,15 +156,13 @@ public class MyWallapopTests {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new Product("Titulo B1","Descripción B1", 5.0, user2));
-				add(new Product("Titulo B2","Descripción B2", 4.3, user2));
-				add(new Product("Titulo B3","Descripción B3", 8.0, user2));
-				add(new Product("Titulo B4","Descripción B4", 3.5, user2));
+				add(new Product("Titulo B1", "Descripción B1", 5.0, user2));
+				add(new Product("Titulo B2", "Descripción B2", 4.3, user2));
+				add(new Product("Titulo B3", "Descripción B3", 8.0, user2));
+				add(new Product("Titulo B4", "Descripción B4", 3.5, user2));
 			}
 		};
-		
-		
-		
+
 		Set<Product> user3Desc = new HashSet<Product>() {
 			/**
 			 * 
@@ -174,12 +171,12 @@ public class MyWallapopTests {
 
 			{
 				;
-				add(new Product("Titulo C1","Descripción C1", 5.5, user3));
-				add(new Product("Titulo C2","Descripción C2", 6.6, user3));
-				add(new Product("Titulo C3","Descripción C3", 7.0, user3));
+				add(new Product("Titulo C1", "Descripción C1", 5.5, user3));
+				add(new Product("Titulo C2", "Descripción C2", 6.6, user3));
+				add(new Product("Titulo C3", "Descripción C3", 7.0, user3));
 			}
 		};
-		
+
 		Set<Product> user4Desc = new HashSet<Product>() {
 			/**
 			 * 
@@ -187,13 +184,12 @@ public class MyWallapopTests {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new Product("Titulo D1","Descripción D1", 10.0, user4));
-				add(new Product("Titulo D2","Descripción D2", 8.0, user4));
-				add(new Product("Titulo D3","Descripción D3", 9.0, user4));
+				add(new Product("Titulo D1", "Descripción D1", 10.0, user4));
+				add(new Product("Titulo D2", "Descripción D2", 8.0, user4));
+				add(new Product("Titulo D3", "Descripción D3", 9.0, user4));
 			}
 		};
-		
-		
+
 		Set<Product> user5Desc = new HashSet<Product>() {
 			/**
 			 * 
@@ -201,87 +197,78 @@ public class MyWallapopTests {
 			private static final long serialVersionUID = 1L;
 
 			{
-				add(new Product("Titulo E1","Descripción E1", 13.0, user5));
-				add(new Product("Titulo E2","Descripción E2", 12.0, user5));
-				add(new Product("Titulo E3","Descripción E3", 11.0, user5));
+				add(new Product("Titulo E1", "Descripción E1", 13.0, user5));
+				add(new Product("Titulo E2", "Descripción E2", 12.0, user5));
+				add(new Product("Titulo E3", "Descripción E3", 11.0, user5));
 			}
 		};
-		
-		
-		
-		
-		
-		/*Set<Product> user1Purchaseds = new HashSet<Product>();
-		Set<Product> user2Purchaseds = new HashSet<Product>();
-		Set<Product> user3Purchaseds = new HashSet<Product>();
-		Set<Product> user4Purchaseds = new HashSet<Product>();
-		Set<Product> user5Purchaseds = new HashSet<Product>();
-		*/
-		
-		
-		Product product1 = new Product("Titulo F1","Descripción F1", 14.0, user1, user2);
-		user1Desc.add(product1);
-		//user2Purchaseds.add(product1);
-		
-		Product product2 = new Product("Titulo G1","Descripción G1", 15.0, user1, user3);
-		user1Desc.add(product2);
-		//user3Purchaseds.add(product2);
-		
-		Product product3 = new Product("Titulo H1","Descripción H1", 16.0, user2, user4);
-		user2Desc.add(product3);
-		//user4Purchaseds.add(product3);
-		
-		Product product4 = new Product("Titulo I1","Descripción I1", 17.0, user2, user5);
-		user2Desc.add(product4);
-	//	user5Purchaseds.add(product4);
-		
-		Product product5 = new Product("Titulo J1","Descripción J1", 18.0, user3, user1);
-		user3Desc.add(product5);
-	//	user1Purchaseds.add(product5);
-		
-		Product product6 = new Product("Titulo K1","Descripción K1", 19.0, user3, user2);
-		user3Desc.add(product6);
-	//	user2Purchaseds.add(product6);
-		
-		Product product7 = new Product("Titulo L1","Descripción L1", 20.0, user4, user3);
-		user4Desc.add(product7);
-	//	user3Purchaseds.add(product7);
-		
-		Product product8 = new Product("Titulo M1","Descripción M1", 21.0, user4, user5);
-		user4Desc.add(product8);
-	//	user5Purchaseds.add(product8);
-		
-		Product product9 = new Product("Titulo N1","Descripción N1", 22.0, user5, user4);
-		user5Desc.add(product9);
-	//	user4Purchaseds.add(product9);
 
-		Product product10 = new Product("Titulo O1","Descripción O1", 23.0, user5, user1);
+		/*
+		 * Set<Product> user1Purchaseds = new HashSet<Product>(); Set<Product>
+		 * user2Purchaseds = new HashSet<Product>(); Set<Product> user3Purchaseds = new
+		 * HashSet<Product>(); Set<Product> user4Purchaseds = new HashSet<Product>();
+		 * Set<Product> user5Purchaseds = new HashSet<Product>();
+		 */
+
+		Product product1 = new Product("Titulo F1", "Descripción F1", 14.0, user1, user2);
+		user1Desc.add(product1);
+		// user2Purchaseds.add(product1);
+
+		Product product2 = new Product("Titulo G1", "Descripción G1", 15.0, user1, user3);
+		user1Desc.add(product2);
+		// user3Purchaseds.add(product2);
+
+		Product product3 = new Product("Titulo H1", "Descripción H1", 16.0, user2, user4);
+		user2Desc.add(product3);
+		// user4Purchaseds.add(product3);
+
+		Product product4 = new Product("Titulo I1", "Descripción I1", 17.0, user2, user5);
+		user2Desc.add(product4);
+		// user5Purchaseds.add(product4);
+
+		Product product5 = new Product("Titulo J1", "Descripción J1", 18.0, user3, user1);
+		user3Desc.add(product5);
+		// user1Purchaseds.add(product5);
+
+		Product product6 = new Product("Titulo K1", "Descripción K1", 19.0, user3, user2);
+		user3Desc.add(product6);
+		// user2Purchaseds.add(product6);
+
+		Product product7 = new Product("Titulo L1", "Descripción L1", 20.0, user4, user3);
+		user4Desc.add(product7);
+		// user3Purchaseds.add(product7);
+
+		Product product8 = new Product("Titulo M1", "Descripción M1", 21.0, user4, user5);
+		user4Desc.add(product8);
+		// user5Purchaseds.add(product8);
+
+		Product product9 = new Product("Titulo N1", "Descripción N1", 22.0, user5, user4);
+		user5Desc.add(product9);
+		// user4Purchaseds.add(product9);
+
+		Product product10 = new Product("Titulo O1", "Descripción O1", 23.0, user5, user1);
 		user5Desc.add(product10);
-	//	user1Purchaseds.add(product10);
-		
-		
+		// user1Purchaseds.add(product10);
+
 		user1.setProducts(user1Desc);
 		user2.setProducts(user2Desc);
 		user3.setProducts(user3Desc);
 		user4.setProducts(user4Desc);
 		user5.setProducts(user5Desc);
-		
+
 //		user1.setPurchaseds(user1Purchaseds);
 //		user2.setPurchaseds(user2Purchaseds);
 //		user3.setPurchaseds(user3Purchaseds);
 //		user4.setPurchaseds(user4Purchaseds);
 //		user5.setPurchaseds(user5Purchaseds);
-		
-		
+
 		usersService.addUser(user1);
 		usersService.addUser(user2);
 		usersService.addUser(user3);
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
-		
-		
-		
+
 	}
 
 	// PR01. Registro de Usuario con datos válidos
@@ -568,9 +555,10 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/add')]");
 		elementos.get(0).click();
-		//Entramos en el formulario para añadir la oferta
-		PO_AddProduct.fillForm(driver, "Flexo de estudio", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
-		//Miramos si está añadido en nuestras ofertas.
+		// Entramos en el formulario para añadir la oferta
+		PO_AddProduct.fillForm(driver, "Flexo de estudio",
+				"Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
+		// Miramos si está añadido en nuestras ofertas.
 		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'/product/myProducts')]");
@@ -580,7 +568,8 @@ public class MyWallapopTests {
 	}
 
 	// PR17. al formulario de alta de oferta, rellenarla con datos inválidos (campo
-	// título vacío) y pulsar el botón Submit. Comprobar que se muestra el mensaje de campo obligatorio
+	// título vacío) y pulsar el botón Submit. Comprobar que se muestra el mensaje
+	// de campo obligatorio
 	@Test
 	public void PR17() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
@@ -592,11 +581,15 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/add')]");
 		elementos.get(0).click();
-		//Entramos en el formulario para añadir la oferta
-		PO_AddProduct.fillForm(driver, "", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
-		//Al tener la validación en local y servidor, saltará por parte de local en primer lugar al ser un campo requerido
-		//Completamos de nuevo el formulario con datos erroneos, comprobando así que seguimos en la misma página a pesar del error inicial 
-		PO_AddProduct.fillForm(driver, "1", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
+		// Entramos en el formulario para añadir la oferta
+		PO_AddProduct.fillForm(driver, "", "Flexo de estudio excelente para esas interminables noches haciendo SDI!",
+				"15.00");
+		// Al tener la validación en local y servidor, saltará por parte de local en
+		// primer lugar al ser un campo requerido
+		// Completamos de nuevo el formulario con datos erroneos, comprobando así que
+		// seguimos en la misma página a pesar del error inicial
+		PO_AddProduct.fillForm(driver, "1", "Flexo de estudio excelente para esas interminables noches haciendo SDI!",
+				"15.00");
 		PO_View.checkElement(driver, "text", "El título debe de conteer entre 5 y 24 caracteres");
 	}
 
@@ -613,8 +606,8 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/myProducts')]");
 		elementos.get(0).click();
-		//Comprobamos el número de ofertas que hay en la tabla.
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());		
+		// Comprobamos el número de ofertas que hay en la tabla.
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertEquals(6, elementos.size());
 	}
 
@@ -632,11 +625,12 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/myProducts')]");
 		elementos.get(0).click();
-		//eliminamos la primera oferta de la lista
-		elementos = PO_View.checkElement(driver, "free", "//td[contains(text(), 'Titulo B4')]/following-sibling::*/a[contains(@href, 'product/delete')]");
+		// eliminamos la primera oferta de la lista
+		elementos = PO_View.checkElement(driver, "free",
+				"//td[contains(text(), 'Titulo B4')]/following-sibling::*/a[contains(@href, 'product/delete')]");
 		elementos.get(0).click();
-		//Comprobamos el número de ofertas que hay en la tabla.
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());		
+		// Comprobamos el número de ofertas que hay en la tabla.
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertEquals(5, elementos.size());
 	}
 
@@ -654,11 +648,12 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/myProducts')]");
 		elementos.get(0).click();
-		//eliminamos la primera oferta de la lista
-		elementos = PO_View.checkElement(driver, "free", "//td[contains(text(), 'Titulo H1')]/following-sibling::*/a[contains(@href, 'product/delete')]");
+		// eliminamos la primera oferta de la lista
+		elementos = PO_View.checkElement(driver, "free",
+				"//td[contains(text(), 'Titulo H1')]/following-sibling::*/a[contains(@href, 'product/delete')]");
 		elementos.get(0).click();
-		//Comprobamos el número de ofertas que hay en la tabla.
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());		
+		// Comprobamos el número de ofertas que hay en la tabla.
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertEquals(5, elementos.size());
 	}
 
@@ -670,51 +665,60 @@ public class MyWallapopTests {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
-		
+
 		// Vamos al listado de ofertas.
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
 		elementos.get(0).click();
-		
-		//Metemos un texto vacío en la búsqueda.
+
+		// Metemos un texto vacío en la búsqueda.
 		PO_SearchProducts.fillForm(driver, "");
-		
-		//Comprobamos que salen todos los elementos
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+
+		// Comprobamos que salen todos los elementos
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertEquals(5, elementos.size());
-		
-		/*PO_Pagination.selectPage(driver, "next");
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+
+		// Vamos de página en página. En total, hay 12 productos: 5 en cada página menos
+		// en la última, que hay 2.0
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@class, 'page-link')]");
+		elementos.get(2).click();
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		assertEquals(5, elementos.size());
-*/
-		/**
-		 * 
-		 * 
-		 * COMPLETAR!!!!!!
-		 * 
-		 */
+		for (int i = 0; i < 3; i++) {
+			elementos = PO_View.checkElement(driver, "free", "//a[contains(@class, 'page-link')]");
+			elementos.get(3).click();
+			elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+			assertEquals(5, elementos.size());
+		}
+
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@class, 'page-link')]");
+		elementos.get(3).click();
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertEquals(2, elementos.size());
+
 	}
 
 	// PR22. Hacer una búsqueda escribiendo en el campo un texto que no exista y
-	// comprobar que se muestra la página que corresponde, con la lista de ofertas vacía.
+	// comprobar que se muestra la página que corresponde, con la lista de ofertas
+	// vacía.
 	@Test
 	public void PR22() {
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
-		
+
 		// Vamos al listado de ofertas.
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
 		elementos.get(0).click();
-		
-		//Metemos un texto que no existe en la búsqueda.
+
+		// Metemos un texto que no existe en la búsqueda.
 		PO_SearchProducts.fillForm(driver, "Este text no existe");
-		
-		//Comprobamos que salen todos los elementos
-		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody",PO_View.getTimeout());
+
+		// Comprobamos que salen todos los elementos
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody", PO_View.getTimeout());
 		PO_HomeView.checkNoElement(driver, "Titulo");
 
 	}
@@ -726,7 +730,23 @@ public class MyWallapopTests {
 	// correctamente en la vista del comprador.
 	@Test
 	public void PR23() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
 
+		// Vamos al listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
+		elementos.get(0).click();
+		
+		// Metemos un texto.
+		PO_SearchProducts.fillForm(driver, "a2");
+
+		PO_View.checkElement(driver, "text", "100.0");
+		WebElement button = driver.findElement(By.name("buyButton"));
+		button.click();
+		PO_View.checkElement(driver, "text", "91.0");
 	}
 
 	// PR24. Sobre una búsqueda determinada (a elección de desarrollador), comprar
@@ -736,7 +756,23 @@ public class MyWallapopTests {
 	// la vista del comprador.
 	@Test
 	public void PR24() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
 
+		// Vamos al listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
+		elementos.get(0).click();
+		
+		// Metemos un texto.
+		PO_SearchProducts.fillForm(driver, "a1");
+
+		PO_View.checkElement(driver, "text", "100.0");
+		WebElement button = driver.findElement(By.name("buyButton"));
+		button.click();
+		PO_View.checkElement(driver, "text", "0.0");
 	}
 
 	// PR21. Sobre una búsqueda determinada (a elección de desarrollador), intentar
