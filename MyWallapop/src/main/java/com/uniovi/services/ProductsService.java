@@ -115,9 +115,6 @@ public class ProductsService {
 		Page<Product> products = new PageImpl<Product>(new LinkedList<Product>());
 		products = productsRepository.searchByTitle(pageable, searchText);
 		
-		if(products.isEmpty())
-			return this.getProducts(pageable);
-		
 		return products;
 	}
 	

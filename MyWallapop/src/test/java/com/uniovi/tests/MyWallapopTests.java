@@ -20,9 +20,11 @@ import com.uniovi.tests.pageobjects.PO_AddProduct;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_ListView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
+import com.uniovi.tests.pageobjects.PO_Pagination;
 import com.uniovi.tests.pageobjects.PO_PrivateView;
 import com.uniovi.tests.pageobjects.PO_Properties;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
+import com.uniovi.tests.pageobjects.PO_SearchProducts;
 import com.uniovi.tests.pageobjects.PO_View;
 import com.uniovi.tests.util.SeleniumUtils;
 import com.uniovi.entities.Product;
@@ -602,7 +604,18 @@ public class MyWallapopTests {
 	// muestran todas los que existen para este usuario.
 	@Test
 	public void PR18() {
-
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+		// En el caso de todos los usuarios no administradores, habrá 6 ofertas.
+		// Vamos a su listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/myProducts')]");
+		elementos.get(0).click();
+		//Comprobamos el número de ofertas que hay en la tabla.
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());		
+		assertEquals(6, elementos.size());
 	}
 
 	// PR19. Ir a la lista de ofertas, borrar la primera oferta de la lista,
@@ -610,7 +623,21 @@ public class MyWallapopTests {
 	// que la oferta desaparece.
 	@Test
 	public void PR19() {
-
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+		// En el caso de todos los usuarios no administradores, habrá 6 ofertas.
+		// Vamos a su listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/myProducts')]");
+		elementos.get(0).click();
+		//eliminamos la primera oferta de la lista
+		elementos = PO_View.checkElement(driver, "free", "//td[contains(text(), 'Titulo B4')]/following-sibling::*/a[contains(@href, 'product/delete')]");
+		elementos.get(0).click();
+		//Comprobamos el número de ofertas que hay en la tabla.
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());		
+		assertEquals(5, elementos.size());
 	}
 
 	// PR20. Ir a la lista de ofertas, borrar la última oferta de la lista,
@@ -618,22 +645,77 @@ public class MyWallapopTests {
 	// que la oferta desaparece
 	@Test
 	public void PR20() {
-
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+		// En el caso de todos los usuarios no administradores, habrá 6 ofertas.
+		// Vamos a su listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/myProducts')]");
+		elementos.get(0).click();
+		//eliminamos la primera oferta de la lista
+		elementos = PO_View.checkElement(driver, "free", "//td[contains(text(), 'Titulo H1')]/following-sibling::*/a[contains(@href, 'product/delete')]");
+		elementos.get(0).click();
+		//Comprobamos el número de ofertas que hay en la tabla.
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());		
+		assertEquals(5, elementos.size());
 	}
 
-	// PR21. acer una búsqueda con el campo vacío y comprobar que se muestra la
+	// PR21. Hacer una búsqueda con el campo vacío y comprobar que se muestra la
 	// página que
 	// corresponde con el listado de las ofertas existentes en el sistema
 	@Test
 	public void PR21() {
-
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+		
+		// Vamos al listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
+		elementos.get(0).click();
+		
+		//Metemos un texto vacío en la búsqueda.
+		PO_SearchProducts.fillForm(driver, "");
+		
+		//Comprobamos que salen todos los elementos
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertEquals(5, elementos.size());
+		
+		/*PO_Pagination.selectPage(driver, "next");
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr",PO_View.getTimeout());
+		assertEquals(5, elementos.size());
+*/
+		/**
+		 * 
+		 * 
+		 * COMPLETAR!!!!!!
+		 * 
+		 */
 	}
 
 	// PR22. Hacer una búsqueda escribiendo en el campo un texto que no exista y
-	// comprobar que se
-	// muestra la página que corresponde, con la lista de ofertas vacía.
+	// comprobar que se muestra la página que corresponde, con la lista de ofertas vacía.
 	@Test
 	public void PR22() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+		
+		// Vamos al listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
+		elementos.get(0).click();
+		
+		//Metemos un texto que no existe en la búsqueda.
+		PO_SearchProducts.fillForm(driver, "Este text no existe");
+		
+		//Comprobamos que salen todos los elementos
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody",PO_View.getTimeout());
+		PO_HomeView.checkNoElement(driver, "Titulo");
 
 	}
 
