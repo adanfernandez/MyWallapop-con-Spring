@@ -4,6 +4,7 @@ package com.uniovi.tests;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ import com.uniovi.tests.util.SeleniumUtils;
 import com.uniovi.entities.Product;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.UsersRepository;
+import com.uniovi.services.ProductsService;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.UsersService;
 
@@ -55,6 +57,10 @@ public class MyWallapopTests {
 
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private ProductsService productsService;
+	
 	@Autowired
 	private RolesService rolesService;
 	@Autowired
@@ -96,55 +102,184 @@ public class MyWallapopTests {
 		// Borramos todas las entidades.
 		usersRepository.deleteAll();
 
-		// Ahora las volvemos a crear
 		User user1 = new User("pedro@pedro", "Pedro", "Díaz");
 		user1.setPassword("123456");
 		user1.setRole(rolesService.getRoles()[0]);
+		
 		User user2 = new User("lucas@lucas", "Lucas", "Núñez");
 		user2.setPassword("123456");
 		user2.setRole(rolesService.getRoles()[0]);
+		
 		User user3 = new User("maria@maria", "María", "Rodríguez");
 		user3.setPassword("123456");
 		user3.setRole(rolesService.getRoles()[0]);
+		
 		User user4 = new User("marta@marta", "Marta", "Almonte");
 		user4.setPassword("123456");
 		user4.setRole(rolesService.getRoles()[0]);
+		
 		User user5 = new User("pelayo@pelayo", "Pelayo", "Valdes");
 		user5.setPassword("123456");
 		user5.setRole(rolesService.getRoles()[0]);
-		User user6 = new User("edward@edward", "Edward", "Núñez");
-		user6.setPassword("123456");
-		user6.setRole(rolesService.getRoles()[0]);
-		User userAdmin = new User("admin@admin", "admin", "admin");
-		userAdmin.setRole(rolesService.getRoles()[1]);
-		userAdmin.setPassword("admin@admin");
-		Set<Product> user1Products = new HashSet<Product>();
-		for (int i = 1; i < 5; i++)
-			user1Products.add(
-					new Product("Titulo A" + String.valueOf(i), "Descripcion" + String.valueOf(i), i * 1.0, user1));
-		user1.setProducts(user1Products);
-		Set<Product> user2Products = new HashSet<Product>();
-		for (int i = 1; i < 5; i++)
-			user2Products.add(
-					new Product("Titulo B" + String.valueOf(i), "Descripcion" + String.valueOf(i), i * 1.0, user2));
-		user2.setProducts(user2Products);
-		Set<Product> user3Products = new HashSet<Product>();
-		for (int i = 1; i < 8; i++)
-			user3Products.add(
-					new Product("Titulo C" + String.valueOf(i), "Descripcion" + String.valueOf(i), i * 1.0, user3));
-		user3.setProducts(user3Products);
-		Set<Product> user4Products = new HashSet<Product>();
-		for (int i = 1; i < 15; i++)
-			user4Products.add(
-					new Product("Titulo D" + String.valueOf(i), "Descripcion" + String.valueOf(i), i * 1.0, user4));
-		user4.setProducts(user4Products);
+		
+		User user6 = new User("admin@admin", "Edward", "Núñez");
+		user6.setPassword("admin");
+		user6.setRole(rolesService.getRoles()[1]);
+		
 		usersService.addUser(user1);
 		usersService.addUser(user2);
 		usersService.addUser(user3);
 		usersService.addUser(user4);
 		usersService.addUser(user5);
 		usersService.addUser(user6);
-		usersService.addUser(userAdmin);
+		
+		
+		Set<Product> user1Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				add(new Product("Titulo A1", "Descripción A1", 101.0, user1));
+				add(new Product("Titulo A2","Descripción A2", 9.0, user1));
+				add(new Product("Titulo A3","Descripción A3", 7.0, user1));
+				add(new Product("Titulo A4","Descripción A4", 6.5, user1));
+			}
+		};
+		
+		Set<Product> user2Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				add(new Product("Titulo B1","Descripción B1", 5.0, user2));
+				add(new Product("Titulo B2","Descripción B2", 4.3, user2));
+				add(new Product("Titulo B3","Descripción B3", 8.0, user2));
+				add(new Product("Titulo B4","Descripción B4", 3.5, user2));
+			}
+		};
+		
+		
+		
+		Set<Product> user3Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				;
+				add(new Product("Titulo C1","Descripción C1", 5.5, user3));
+				add(new Product("Titulo C2","Descripción C2", 6.6, user3));
+				add(new Product("Titulo C3","Descripción C3", 7.0, user3));
+			}
+		};
+		
+		Set<Product> user4Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				add(new Product("Titulo D1","Descripción D1", 10.0, user4));
+				add(new Product("Titulo D2","Descripción D2", 8.0, user4));
+				add(new Product("Titulo D3","Descripción D3", 9.0, user4));
+			}
+		};
+		
+		
+		Set<Product> user5Desc = new HashSet<Product>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			{
+				add(new Product("Titulo E1","Descripción E1", 13.0, user5));
+				add(new Product("Titulo E2","Descripción E2", 12.0, user5));
+				add(new Product("Titulo E3","Descripción E3", 11.0, user5));
+			}
+		};
+		
+		
+		
+		
+		
+		/*Set<Product> user1Purchaseds = new HashSet<Product>();
+		Set<Product> user2Purchaseds = new HashSet<Product>();
+		Set<Product> user3Purchaseds = new HashSet<Product>();
+		Set<Product> user4Purchaseds = new HashSet<Product>();
+		Set<Product> user5Purchaseds = new HashSet<Product>();
+		*/
+		
+		
+		Product product1 = new Product("Titulo F1","Descripción F1", 14.0, user1, user2);
+		user1Desc.add(product1);
+		//user2Purchaseds.add(product1);
+		
+		Product product2 = new Product("Titulo G1","Descripción G1", 15.0, user1, user3);
+		user1Desc.add(product2);
+		//user3Purchaseds.add(product2);
+		
+		Product product3 = new Product("Titulo H1","Descripción H1", 16.0, user2, user4);
+		user2Desc.add(product3);
+		//user4Purchaseds.add(product3);
+		
+		Product product4 = new Product("Titulo I1","Descripción I1", 17.0, user2, user5);
+		user2Desc.add(product4);
+	//	user5Purchaseds.add(product4);
+		
+		Product product5 = new Product("Titulo J1","Descripción J1", 18.0, user3, user1);
+		user3Desc.add(product5);
+	//	user1Purchaseds.add(product5);
+		
+		Product product6 = new Product("Titulo K1","Descripción K1", 19.0, user3, user2);
+		user3Desc.add(product6);
+	//	user2Purchaseds.add(product6);
+		
+		Product product7 = new Product("Titulo L1","Descripción L1", 20.0, user4, user3);
+		user4Desc.add(product7);
+	//	user3Purchaseds.add(product7);
+		
+		Product product8 = new Product("Titulo M1","Descripción M1", 21.0, user4, user5);
+		user4Desc.add(product8);
+	//	user5Purchaseds.add(product8);
+		
+		Product product9 = new Product("Titulo N1","Descripción N1", 22.0, user5, user4);
+		user5Desc.add(product9);
+	//	user4Purchaseds.add(product9);
+
+		Product product10 = new Product("Titulo O1","Descripción O1", 23.0, user5, user1);
+		user5Desc.add(product10);
+	//	user1Purchaseds.add(product10);
+		
+		
+		user1.setProducts(user1Desc);
+		user2.setProducts(user2Desc);
+		user3.setProducts(user3Desc);
+		user4.setProducts(user4Desc);
+		user5.setProducts(user5Desc);
+		
+//		user1.setPurchaseds(user1Purchaseds);
+//		user2.setPurchaseds(user2Purchaseds);
+//		user3.setPurchaseds(user3Purchaseds);
+//		user4.setPurchaseds(user4Purchaseds);
+//		user5.setPurchaseds(user5Purchaseds);
+		
+		
+		usersService.addUser(user1);
+		usersService.addUser(user2);
+		usersService.addUser(user3);
+		usersService.addUser(user4);
+		usersService.addUser(user5);
+		usersService.addUser(user6);
+		
+		
+		
 	}
 
 	// PR01. Registro de Usuario con datos válidos
@@ -191,7 +326,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de registro
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		// Rellenamos el formulario.
-		PO_RegisterView.fillForm(driver, "edward@edward", "AdanVetusta", "Fernandez", "123456", "654321");
+		PO_RegisterView.fillForm(driver, "pedro@pedro", "AdanVetusta", "Fernandez", "123456", "654321");
 		// Comprobamos que no pasa nada puesto que es un campo required. Seguimos en la
 		// misma página
 		PO_View.checkKey(driver, "Error.signup.email.duplicate", PO_Properties.getSPANISH());
@@ -203,7 +338,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		PO_LoginView.fillForm(driver, "admin@admin", "admin");
 		// Comprobamos que entramos en la pagina privada del usuario
 		PO_View.checkElement(driver, "text", "Gestión de usuarios");
 	}
@@ -308,7 +443,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		PO_LoginView.fillForm(driver, "admin@admin", "admin");
 		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
 		// 'marks-menu')]/a
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
@@ -318,9 +453,9 @@ public class MyWallapopTests {
 		elementos.get(0).click();
 		// Contamos el número de filas de notas
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
-		// 6
-		assertTrue(elementos.size() == 6);
+		// En total hay 6 usuarios contando el administrador, por eso tendrían que salir
+		// 5
+		assertTrue(elementos.size() == 5);
 		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 
 	}
@@ -333,7 +468,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		PO_LoginView.fillForm(driver, "admin@admin", "admin");
 		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
 		// 'marks-menu')]/a
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
@@ -350,9 +485,9 @@ public class MyWallapopTests {
 
 		// Contamos el número de filas de notas
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
-		// 6. Al eliminar uno, deberían de salir 5.
-		assertTrue(elementos.size() == 5);
+		// En total hay 6 usuarios contando el administrador, por eso tendrían que salir
+		// 5. Al eliminar uno, deberían de salir 4.
+		assertTrue(elementos.size() == 4);
 
 	}
 
@@ -364,7 +499,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		PO_LoginView.fillForm(driver, "admin@admin", "admin");
 		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
 		// 'marks-menu')]/a
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
@@ -380,9 +515,9 @@ public class MyWallapopTests {
 
 		// Contamos el número de filas de notas
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
-		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
-		// 6. Al eliminar uno, deberían de salir 5.
-		assertTrue(elementos.size() == 5);
+		// En total hay 6 usuarios contando el administrador, por eso tendrían que salir
+		// 5. Al eliminar uno, deberían de salir 4.
+		assertTrue(elementos.size() == 4);
 
 	}
 
@@ -393,7 +528,7 @@ public class MyWallapopTests {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "admin@admin", "admin@admin");
+		PO_LoginView.fillForm(driver, "admin@admin", "admin");
 		// Pinchamos en la opción de menu de Usuarios: //li[contains(@id,
 		// 'marks-menu')]/a
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
@@ -412,7 +547,7 @@ public class MyWallapopTests {
 		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
 		// En total hay 7 usuarios contando el administrador, por eso tendrían que salir
 		// 6. Al eliminar uno, deberían de salir 5.
-		assertTrue(elementos.size() == 3);
+		assertTrue(elementos.size() == 2);
 	}
 
 	// PR16. Ir al formulario de alta de oferta, rellenarla con datos válidos y
@@ -458,14 +593,13 @@ public class MyWallapopTests {
 		//Entramos en el formulario para añadir la oferta
 		PO_AddProduct.fillForm(driver, "", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
 		//Al tener la validación en local y servidor, saltará por parte de local en primer lugar al ser un campo requerido
-		//Completamos de nuevo el formulario
+		//Completamos de nuevo el formulario con datos erroneos, comprobando así que seguimos en la misma página a pesar del error inicial 
 		PO_AddProduct.fillForm(driver, "1", "Flexo de estudio excelente para esas interminables noches haciendo SDI!", "15.00");
 		PO_View.checkElement(driver, "text", "El título debe de conteer entre 5 y 24 caracteres");
 	}
 
 	// PR18. Mostrar el listado de ofertas para dicho usuario y comprobar que se
-	// muestran todas los que
-	// existen para este usuario.
+	// muestran todas los que existen para este usuario.
 	@Test
 	public void PR18() {
 

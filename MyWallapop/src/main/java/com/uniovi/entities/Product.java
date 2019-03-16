@@ -46,6 +46,15 @@ public class Product {
 		this.price = price;
 		this.user = user;
 	}
+	
+	public Product(String title, String description, Double price, User user, User buyer) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.user = user;
+		this.buyer = buyer;
+	}
 
 	public Product() {
 	}
