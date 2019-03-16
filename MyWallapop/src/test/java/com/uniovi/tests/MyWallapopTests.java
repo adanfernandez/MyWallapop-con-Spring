@@ -776,36 +776,78 @@ public class MyWallapopTests {
 	}
 
 	// PR21. Sobre una búsqueda determinada (a elección de desarrollador), intentar
-	// comprar una oferta
-	// que esté por encima de saldo disponible del comprador. Y comprobar que se
-	// muestra el mensaje de
-	// saldo no suficiente.
+	// comprar una oferta que esté por encima de saldo disponible del comprador. Y comprobar que se
+	// muestra el mensaje de saldo no suficiente.
 	@Test
 	public void PR25() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
 
+		// Vamos al listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
+		elementos.get(0).click();
+		
+		// Metemos un texto.
+		PO_SearchProducts.fillForm(driver, "a2");
+		
+		WebElement button = driver.findElement(By.name("buyButton"));
+		button.click();
+		
+		// Metemos un texto.
+		PO_SearchProducts.fillForm(driver, "a1");
+		
+		button = driver.findElement(By.name("buyButton"));
+		button.click();
+		
+		assertTrue(driver.switchTo().alert().getText().toString().equals("No posee suficiente dinero para comprar el producto"));
+		
+		driver.switchTo().alert().accept();
+		
 	}
 
-	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista.
-	// Comprobar que aparecen
-	// las ofertas que deben aparecer.
+	// PR26. Ir a la opción de ofertas compradas del usuario y mostrar la lista. Comprobar que aparecen las ofertas que deben aparecer.
 	@Test
 	public void PR26() {
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+
+		// Vamos al listado de ofertas.
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/list')]");
+		elementos.get(0).click();
+		
+		// Metemos un texto.
+		PO_SearchProducts.fillForm(driver, "a2");
+		WebElement button = driver.findElement(By.name("buyButton"));
+		button.click();
+		
+		//Cada usuario tenia dos compradas. Con este debería de tener 3.
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'/product/purchased')]");
+		elementos.get(0).click();
+
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertTrue(elementos.size()==3);
+		
 
 	}
 
 	// PR27. Visualizar al menos cuatro páginas en Español/Inglés/Español
-	// (comprobando que algunas
-	// de las etiquetas cambian al idioma correspondiente). Página
-	// principal/Opciones Principales de
-	// Usuario/Listado de Usuarios de Admin/Vista de alta de Oferta.
+	// (comprobando que algunas de las etiquetas cambian al idioma correspondiente).
+	//	Página principal/Opciones Principales de Usuario/Listado de Usuarios de Admin/Vista de alta de Oferta.
 	@Test
 	public void PR27() {
 
 	}
 
 	// PR28. Intentar acceder sin estar autenticado a la opción de listado de
-	// usuarios del administrador. Se
-	// deberá volver al formulario de login.
+	// usuarios del administrador. Se  deberá volver al formulario de login.
 	@Test
 	public void PR28() {
 
