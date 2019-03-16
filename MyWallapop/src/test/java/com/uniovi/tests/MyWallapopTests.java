@@ -844,6 +844,86 @@ public class MyWallapopTests {
 	@Test
 	public void PR27() {
 
+		PO_View.checkKey(driver, "welcome.message", PO_Properties.getSPANISH());
+		//Cambiamos el idioma a Inglés
+		PO_HomeView.changeIdiom(driver, "btnEnglish");
+		//Esperamos porque aparezca que aparezca el texto de bienvenida en inglés
+		PO_View.checkKey(driver, "welcome.message", PO_Properties.getENGLISH());
+
+		//Nos registramos
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "lucas@lucas", "123456");
+		
+
+		PO_View.checkKey(driver, "home.welcome.message", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "home.private.message", PO_Properties.getENGLISH());
+		PO_HomeView.changeIdiom(driver, "btnSpanish");
+		PO_View.checkKey(driver, "home.welcome.message", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "home.private.message", PO_Properties.getSPANISH());
+		
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'products-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'product/add')]");
+		elementos.get(0).click();
+		
+		PO_View.checkKey(driver, "addProduct.description", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addProduct.title", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addProduct.description", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addProduct.price", PO_Properties.getSPANISH());
+		
+		PO_HomeView.changeIdiom(driver, "btnEnglish");
+
+		PO_View.checkKey(driver, "addProduct.description", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addProduct.title", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addProduct.description", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addProduct.price", PO_Properties.getENGLISH());
+		
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, "admin@admin", "admin");
+		
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/list')]");
+		elementos.get(0).click();
+
+		PO_View.checkKey(driver, "listuser.description", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "listuser.title", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "listuser.email", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "listuser.name", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "listuser.lastName", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "listuser.delete", PO_Properties.getSPANISH());
+		
+		PO_HomeView.changeIdiom(driver, "btnEnglish");
+
+		PO_View.checkKey(driver, "listuser.description", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "listuser.title", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "listuser.email", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "listuser.name", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "listuser.lastName", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "listuser.delete", PO_Properties.getENGLISH());
+		
+		elementos = PO_View.checkElement(driver, "free", "//li[contains(@id, 'users-menu')]/a");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "free", "//a[contains(@href,'user/add')]");
+		elementos.get(0).click();
+
+		PO_View.checkKey(driver, "addUser.role", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addUser.name", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addUser.lastName", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addUser.email", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addUser.password", PO_Properties.getENGLISH());
+		PO_View.checkKey(driver, "addUser.repPassword", PO_Properties.getENGLISH());
+		
+		PO_HomeView.changeIdiom(driver, "btnSpanish");
+		
+		PO_View.checkKey(driver, "addUser.role", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addUser.name", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addUser.lastName", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addUser.email", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addUser.password", PO_Properties.getSPANISH());
+		PO_View.checkKey(driver, "addUser.repPassword", PO_Properties.getSPANISH());
+
+		
 	}
 
 	// PR28. Intentar acceder sin estar autenticado a la opción de listado de

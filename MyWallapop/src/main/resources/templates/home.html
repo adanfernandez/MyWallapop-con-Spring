@@ -5,8 +5,8 @@
 	<nav th:replace="fragments/nav" />
 	<div th:replace="fragments/infoUser" />
 	<div class="container" style="text-align: center">
-		<h2>BIENVENIDO A WALLAPOP</h2>
-		<h3>Esta es una zona privada la aplicación.</h3>
+		<h2 th:text="#{home.welcome.message}">BIENVENIDO A WALLAPOP</h2>
+		<h3 th:text="#{home.private.message}">Esta es una zona privada la aplicación.</h3>
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>
