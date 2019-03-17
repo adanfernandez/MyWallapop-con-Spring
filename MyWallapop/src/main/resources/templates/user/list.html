@@ -19,8 +19,6 @@
 							<th th:text="#{listuser.name}">Nombre</th>
 							<th th:text="#{listuser.lastName}">Apellidos</th>
 							<th th:text="#{listuser.delete}">Eliminar</th>
-							<th class="col-md-1"></th>
-							<th class="col-md-1"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,9 +28,6 @@
 							<td th:text="${user.lastName}">Apellidos del alumno</td>
 							<form  class="form-horizontal" method="post" action="/user/delete">
 							<td><input type="checkbox" name="checkbox_ids" th:value="${user.id}"></td>
-							<td><a th:href="${'/user/details/' + user.id}" th:text="#{listuser.details}">detalles</a></td>
-							<td><a th:href="${'/user/edit/' + user.id}" th:text="#{listuser.edit}">modificar</a></td>
-							
 						</tr>
 					</tbody>
 				</table>

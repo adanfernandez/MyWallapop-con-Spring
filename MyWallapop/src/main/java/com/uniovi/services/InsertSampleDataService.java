@@ -20,10 +20,6 @@ public class InsertSampleDataService {
 	@Autowired
 	private RolesService rolesService;
 	
-	@Autowired
-	private ProductsService productsService;
-
-
 	@PostConstruct
 	public void init() {		
 			

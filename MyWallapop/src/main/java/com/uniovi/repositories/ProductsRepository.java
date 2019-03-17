@@ -27,6 +27,6 @@ public interface ProductsRepository extends CrudRepository<Product, Long>{
 	@Query("UPDATE Product p SET p.isBuyed = true, p.buyer.id = ?2 WHERE p.id = ?1")
 	void buyProduct(Long id_product, Long id_user);
 	
-	
+	 
 	Page<Product> findAll(Pageable pageable); 
 }

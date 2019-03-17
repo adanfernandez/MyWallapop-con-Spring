@@ -49,6 +49,7 @@ public class ProductsService {
 	 * @return
 	 */
 	public Product getProduct(Long id) {
+		@SuppressWarnings("unchecked")
 		Set<Product> consultedList = (Set<Product>) httpSession.getAttribute("consultedList");
 		if (consultedList == null) {
 			consultedList = new HashSet<Product>();
@@ -65,6 +66,7 @@ public class ProductsService {
 	 * @param product
 	 */
 	public void addProduct(Product product, User user) {
+		product.setUser(user);
 		if (product.getUser().getEmail().equals(user.getEmail()))
 			productsRepository.save(product);
 	}

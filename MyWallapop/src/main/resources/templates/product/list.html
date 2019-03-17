@@ -53,7 +53,6 @@
 									<button type="button" th:id="${'buyProduct' + product.id}"
 										class="btn btn-info" th:value="#{listProduct.buy}" name="buyButton">Comprar</button>
 								</div>									
-								<p hidden th:text="#{listProduct.notEnoughMoney}" id="enough_money"></p>
 								<script th:inline="javascript">
 									/*<![CDATA[*/
 									$("#buyProduct[[${product.id}]]").click(function() {
@@ -61,8 +60,7 @@
 											{
 												if([[${product.price}]] > [[${user.money}]])
 												{
-													var mensaje = document.getElementById("enough_money").innerHTML;
-													alert(mensaje.toString());
+													alert([[#{listProduct.notEnoughMoney}]]);
 												}
 												 var numberPage = [[${param.page}]];
 												 var urlUpdate = '/product/list/update';
@@ -72,8 +70,6 @@
 												$("#divProducts").load(urlUpdate);
 											}	
 										);
-													
-
 									});
 									/*]]>*/
 								</script>

@@ -80,12 +80,11 @@ public class ProductController {
 			return "/product/add";
 		}
 		User user = usersService.getUserByEmail(principal.getName());
-		product.setUser(user);
 		productsService.addProduct(product, user);
 		return "redirect:/product/list";
 	}
 
-	@RequestMapping("/product/delete/{id}")
+	@RequestMapping("/product/delete/{id}") 
 	public String deleteProduct(@PathVariable Long id, Principal principal) {
 		User user = usersService.getUserByEmail(principal.getName());
 
@@ -141,7 +140,6 @@ public class ProductController {
 		Page<Product> products = productsService.getProducts(pageable);
 		model.addAttribute("productList", products.getContent());
 		model.addAttribute(user);
-		//model.addAttribute("page", products);
 		return "product/list :: divProducts";
 	}
 
@@ -149,11 +147,9 @@ public class ProductController {
 	public String buyProduct(Model model, @PathVariable Long id, Principal principal, Pageable pageable) {
 		User user = usersService.getUserByEmail(principal.getName());
 		Page<Product> products = productsService.getProducts(pageable);
-
 		productsService.buy(id, user);
 		model.addAttribute(user);
 		model.addAttribute("page", products);
-		System.out.println(model.containsAttribute("page"));
 		return "product/list";
 	}
 	
